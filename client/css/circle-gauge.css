@@ -1,0 +1,53 @@
+/* ############################################################################################################# */
+/*                                               Circle Gauge                                                   */
+/* ############################################################################################################# */
+.soil-gauge,
+.humidity-gauge,
+.temp-gauge {
+  width: 100%;
+  max-width: 250px;
+  font-size: 2rem;
+  color: #004033;
+}
+.soil-gauge .gauge-body,
+.humidity-gauge .gauge-body,
+.temp-gauge .gauge-body {
+  position: relative;
+  aspect-ratio: 2/1;
+  width: 100%;
+  background: #b4c0be;
+  border-top-left-radius: 100% 200%;
+  border-top-right-radius: 100% 200%;
+  overflow: hidden;
+}
+.soil-gauge .gauge-fill,
+.humidity-gauge .gauge-fill,
+.temp-gauge .gauge-fill {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  background: #009578;
+  transform-origin: center top;
+  transform: rotate(0.25turn);
+  transition: transform 0.2s ease-out;
+}
+.soil-gauge .gauge-cover,
+.humidity-gauge .gauge-cover,
+.temp-gauge .gauge-cover {
+  height: 200%;
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25%;
+  box-sizing: border-box;
+}
+/*# sourceMappingURL=circle-gauge.css.map */

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raspberry Pi Controller</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+  <div class="header-panel">
+    <h1>Controller</h1>
+  </div>
+
+  <div class="stats-panel">
+    <div class="temp-gauge">
+      <div class="gauge-body">
+        <div class="gauge-fill"></div>
+        <div class="gauge-cover">50%</div>
+      </div>
+    </div>
+    <div class="humidity-gauge">
+      <div class="gauge-body">
+        <div class="gauge-fill"></div>
+        <div class="gauge-cover">50%</div>
+      </div>
+    </div>
+    <div class="soil-gauge">
+      <div class="gauge-body">
+        <div class="gauge-fill"></div>
+        <div class="gauge-cover">50%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctrl-panel">
+
+    <div class="ctrl light">
+      <div class="ctrl-title">Lights</div>
+      <div class="toggleBtn">
+        <input type="checkbox" id="light-toggle-js" class="checkbox"/>
+        <label for="light-toggle-js" class="switch"></label>
+      </div>
+    </div>
+
+    <div class="ctrl heat">
+      <div class="ctrl-title">Heater</div>
+      <div class="toggleBtn">
+        <input type="checkbox" id="heat-toggle-js" class="checkbox"/>
+        <label for="heat-toggle-js" class="switch"></label>
+      </div>
+    </div>
+
+    <div class="ctrl fan">
+      <div class="ctrl-title">Exhaust Fan</div>
+      <div class="toggleBtn">
+        <input type="checkbox" id="fan-toggle-js" class="checkbox"/>
+        <label for="fan-toggle-js" class="switch"></label>
+      </div>
+    </div>
+
+    <div class="ctrl humidifier">
+      <div class="ctrl-title">Humidifier</div>
+      <div class="toggleBtn">
+        <input type="checkbox" id="humid-toggle-js" class="checkbox"/>
+        <label for="humid-toggle-js" class="switch"></label>
+      </div>
+    </div>
+
+    <div class="ctrl dehumidifier">
+      <div class="ctrl-title">Dehumidifier</div>
+      <div class="toggleBtn">
+        <input type="checkbox" id="dehumid-toggle-js" class="checkbox"/>
+        <label for="dehumid-toggle-js" class="switch"></label>
+      </div>
+    </div>
+
+  </div>
+
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
