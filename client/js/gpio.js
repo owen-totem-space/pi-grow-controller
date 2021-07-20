@@ -11,7 +11,7 @@ const dehumid = new Gpio(20, 'out');
 // const humidSensor = new Gpio(16, 'out');
 
 (function () {
-  const socket = io();
+  const socket = io('http://localhost:300');
 
   /**
    * Manage messages from socket.io server
