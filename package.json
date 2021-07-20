@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A controller for a plugboard and sensors",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
