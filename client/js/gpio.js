@@ -1,6 +1,7 @@
 // const Gpio = require('onoff').Gpio;
 import { Gpio } from 'onoff';
 import { switches } from './Switches.js';
+import { io } from 'socket.io-client';
 
 const light = new Gpio(26, 'out');
 const heat = new Gpio(27, 'out');
@@ -11,7 +12,7 @@ const dehumid = new Gpio(20, 'out');
 // const humidSensor = new Gpio(16, 'out');
 
 (function () {
-  const socket = io('http://localhost:300');
+  const socket = io('http://localhost:3000');
 
   /**
    * Manage messages from socket.io server
