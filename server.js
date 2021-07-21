@@ -3,7 +3,7 @@ import http from 'http';
 import express from 'express';
 import { switches } from './client/js/Switches.js';
 import { Server } from 'socket.io';
-import { gpioStartup } from './client/js/gpio.js';
+import { gpioStartup, runGPIO } from './gpio.js';
 
 // const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const app = express();
@@ -23,6 +23,7 @@ server.listen(PORT, () => {
 
 // socket.io
 io.on('connection', (socket) => {
+  runGPIO();
   console.log('A new client has connected');
   socket.emit('lightSet', switches.getLightState());
   socket.emit('heatSet', switches.getHeaterState());
