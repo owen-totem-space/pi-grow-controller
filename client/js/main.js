@@ -1,10 +1,10 @@
-import { gpioStartup, runGPIO } from './gpio';
+// import { gpioStartup, runGPIO } from './gpio.js';
 
 (function () {
   // Load socket.io
   const socket = io();
-  gpioStartup();
-  runGPIO(socket);
+  // gpioStartup();
+  // runGPIO(socket);
   // Store Button Elements
   const lightSwitch = document.getElementById('light-toggle-js');
   const heatSwitch = document.getElementById('heat-toggle-js');

@@ -1,8 +1,8 @@
 import path from 'path';
 import http from 'http';
 import express from 'express';
-import { switches } from './client/js/Switches.js';
 import { Server } from 'socket.io';
+import { switches } from './client/js/Switches.js';
 
 // const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const app = express();

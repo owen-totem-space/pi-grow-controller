@@ -113,6 +113,7 @@ body {
 .ctrl-panel {
   max-width: 1000px;
   margin: 0 auto;
+  background-color: red;
 }
 .ctrl-panel .ctrl {
   display: flex;
@@ -122,4 +123,3 @@ body {
 .ctrl-panel .ctrl-title {
   font-size: 1.6rem;
 }
-/*# sourceMappingURL=style.css.map */

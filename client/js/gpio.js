@@ -9,8 +9,9 @@ const dehumid = new Gpio(20, 'out');
 // const tempSensor = new Gpio(15, 'out');
 // const humidSensor = new Gpio(16, 'out');
 
-export const runGPIO = (socket) => {
-  // const socket = io();
+const runGPIO = () => {
+  const socket = io();
+  console.log('started running');
 
   /**
    * Manage messages from socket.io server
@@ -56,7 +57,7 @@ export const runGPIO = (socket) => {
   });
 };
 
-export const gpioStartup = () => {
+const gpioStartup = () => {
   light.writeSync(switches.getLightState());
   heat.writeSync(switches.getHeaterState());
   fan.writeSync(switches.getFanState());
@@ -65,3 +66,6 @@ export const gpioStartup = () => {
 
   console.log(`Started`);
 };
+
+gpioStartup();
+runGPIO();

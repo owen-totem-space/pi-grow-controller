@@ -16,29 +16,36 @@ const stylesSrc = './client/scss/**/*.scss';
 const stylesBuild = './client/css/';
 
 function styles() {
-  return src(stylesSrc)
-    .pipe(sourcemaps.init())
+  return (
+    src(stylesSrc)
+      // .pipe(sourcemaps.init())
 
-    .pipe(sass().on('error', sass.logError))
+      .pipe(sass().on('error', sass.logError))
 
-    .pipe(sourcemaps.write('.'))
-    .pipe(dest(stylesBuild));
+      // .pipe(sourcemaps.write('.'))
+      .pipe(dest(stylesBuild))
+  );
 }
 
 function cleaner() {
   return src(stylesBuild, { read: false, allowEmpty: true }).pipe(clean({ force: true }));
 }
 
-function watcher() {
+function bsServer(cb) {
   browserSync.init({
     server: { baseDir: './client' },
     notify: true,
   });
+  cb();
+}
+function watcher() {
+  watch('*.html', browserSync.reload);
   watch(stylesSrc, styles).on('change', browserSync.reload);
 }
 
 exports.cleaner = cleaner;
 exports.styles = styles;
+exports.bsServer = bsServer;
 exports.watcher = watcher;
 
-exports.default = series(cleaner, styles, watcher);
+exports.default = series(cleaner, styles, bsServer, watcher);
