@@ -21,7 +21,7 @@ export const runGPIO = () => {
     console.log('Light GPIO Switched');
   });
   socket.on('heatSet', (newValue) => {
-    heat.writeSync(switches.getHeatState());
+    heat.writeSync(switches.getHeaterState());
     console.log('Heat GPIO Switched');
   });
   socket.on('fanSet', (newValue) => {
@@ -59,7 +59,7 @@ export const runGPIO = () => {
 
 export const gpioStartup = () => {
   light.writeSync(switches.getLightState());
-  heat.writeSync(switches.getHeatState());
+  heat.writeSync(switches.getHeaterState());
   fan.writeSync(switches.getFanState());
   humid.writeSync(switches.getHumidState());
   dehumid.writeSync(switches.getDehumidState());
