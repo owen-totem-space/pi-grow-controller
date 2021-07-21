@@ -23,7 +23,7 @@ server.listen(PORT, () => {
 
 // socket.io
 io.on('connection', (socket) => {
-  runGPIO();
+  runGPIO(socket);
   console.log('A new client has connected');
   socket.emit('lightSet', switches.getLightState());
   socket.emit('heatSet', switches.getHeaterState());
