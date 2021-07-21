@@ -4,7 +4,7 @@ import { gpioStartup, runGPIO } from './gpio';
   // Load socket.io
   const socket = io();
   gpioStartup();
-  runGPIO();
+  runGPIO(socket);
   // Store Button Elements
   const lightSwitch = document.getElementById('light-toggle-js');
   const heatSwitch = document.getElementById('heat-toggle-js');

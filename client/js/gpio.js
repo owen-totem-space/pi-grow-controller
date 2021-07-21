@@ -9,7 +9,7 @@ const dehumid = new Gpio(20, 'out');
 // const tempSensor = new Gpio(15, 'out');
 // const humidSensor = new Gpio(16, 'out');
 
-export const runGPIO = () => {
+export const runGPIO = (socket) => {
   // const socket = io();
 
   /**
