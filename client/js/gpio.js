@@ -1,6 +1,5 @@
-// const Gpio = require('onoff').Gpio;
 import { Gpio } from 'onoff';
-import { switches } from './client/js/Switches.js';
+import { switches } from './Switches.js';
 
 const light = new Gpio(26, 'out');
 const heat = new Gpio(27, 'out');
