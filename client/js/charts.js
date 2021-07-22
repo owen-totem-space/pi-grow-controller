@@ -1,3 +1,4 @@
+// import ApexCharts from 'apexcharts';
 let temp = 34;
 // Chart Options
 const tempOptions = {
@@ -5,7 +6,7 @@ const tempOptions = {
   series: [temp],
   // Chart Type/Design
   chart: {
-    height: 250,
+    height: 200,
     type: 'radialBar',
     toolbar: {
       show: false,
@@ -49,10 +50,10 @@ const tempOptions = {
       dataLabels: {
         show: true,
         name: {
-          offsetY: -30,
+          offsetY: -20,
           show: true,
           color: '#ccc',
-          fontSize: '24px',
+          fontSize: '20px',
         },
         value: {
           formatter: function (val) {
@@ -60,7 +61,7 @@ const tempOptions = {
           },
           offsetY: 10,
           color: '#ccc',
-          fontSize: '36px',
+          fontSize: '28px',
           show: true,
         },
       },
@@ -97,7 +98,7 @@ const humidOptions = {
   series: [humidity],
   // Chart Type/Design
   chart: {
-    height: 250,
+    height: 200,
     type: 'radialBar',
     toolbar: {
       show: false,
@@ -141,10 +142,10 @@ const humidOptions = {
       dataLabels: {
         show: true,
         name: {
-          offsetY: -30,
+          offsetY: -20,
           show: true,
           color: '#ccc',
-          fontSize: '24px',
+          fontSize: '20px',
         },
         value: {
           formatter: function (val) {
@@ -152,7 +153,7 @@ const humidOptions = {
           },
           offsetY: 10,
           color: '#ccc',
-          fontSize: '36px',
+          fontSize: '28px',
           show: true,
         },
       },
@@ -189,7 +190,7 @@ const soilOptions = {
   series: [soil],
   // Chart Type/Design
   chart: {
-    height: 250,
+    height: 200,
     type: 'radialBar',
     toolbar: {
       show: false,
@@ -233,10 +234,10 @@ const soilOptions = {
       dataLabels: {
         show: true,
         name: {
-          offsetY: -30,
+          offsetY: -20,
           show: true,
           color: '#ccc',
-          fontSize: '24px',
+          fontSize: '20px',
         },
         value: {
           formatter: function (val) {
@@ -244,7 +245,7 @@ const soilOptions = {
           },
           offsetY: 10,
           color: '#ccc',
-          fontSize: '36px',
+          fontSize: '28px',
           show: true,
         },
       },

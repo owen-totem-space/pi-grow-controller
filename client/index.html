@@ -12,7 +12,8 @@
   <script defer src="js/design.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script defer src="js/charts.js"></script>
-  <script defer src="js/time.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script defer src="js/time.js" type ="module"></script>
 
 </head>
 <body>
@@ -27,37 +28,15 @@
 
     <div class="stats-panel">
       <div class="gauge-container glass">
-        <div id="temp-gauge" class="temp"></div>
+        <div id="temp-gauge" class="temp-gauge"></div>
       </div>
       <div class="gauge-container glass">
-        <div id="humid-gauge" class="humid"></div>
+        <div id="humid-gauge" class="humid-gauge"></div>
       </div>
       <div class="gauge-container glass">
-        <div id="soil-gauge" class="humid"></div>
+        <div id="soil-gauge" class="humid-gauge"></div>
       </div>
     </div>
-
-    <!-- <div class="stats-panel">
-      <div class="temp-gauge glass">
-        <div class="gauge-body">
-          <div class="gauge-fill"></div>
-          <div class="gauge-cover">50%</div>
-        </div>
-      </div>
-      <div class="humidity-gauge glass">
-        <div class="gauge-body">
-          <div class="gauge-fill"></div>
-          <div class="gauge-cover">50%</div>
-        </div>
-      </div>
-      <div class="soil-gauge glass">
-        <div class="gauge-body">
-          <div class="gauge-fill"></div>
-          <div class="gauge-cover">50%</div>
-        </div>
-      </div>
-
-    </div> -->
 
     <div class="ctrl-panel glass">
 
@@ -102,7 +81,22 @@
       </div>
 
     </div> <!-- ctrl-panel-->
-</div> <!-- Page Container-->
+
+    <div class="config-panel glass">
+      <div class="light-timer config">
+        <div class="config-title">Light Timer</div>
+      </div>
+      <div class="temp-config config">
+        <div class="config-title">Temperature Settings</div>
+      </div>
+      <div class="fan-timer config">
+        <div class="config-title">Fan Timer</div>
+      </div>
+      <div class="humid-config config">
+        <div class="config-title">Humidity Settings</div>
+      </div>
+    </div>
+  </div> <!-- Page Container-->
 
 </body>
 </html>
