@@ -9,79 +9,100 @@
   <script defer src="/socket.io/socket.io.js"></script>
   <script defer src="js/main.js" ></script>
   <script defer src="js/gpio.js" type="module"></script>
+  <script defer src="js/design.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script defer src="js/charts.js"></script>
+  <script defer src="js/time.js"></script>
 
 </head>
 <body>
-  <div class="header-panel">
-    <h1>Controller</h1>
-  </div>
-
-  <div class="stats-panel">
-    <div class="temp-gauge">
-      <div class="gauge-body">
-        <div class="gauge-fill"></div>
-        <div class="gauge-cover">50%</div>
-      </div>
-    </div>
-    <div class="humidity-gauge">
-      <div class="gauge-body">
-        <div class="gauge-fill"></div>
-        <div class="gauge-cover">50%</div>
-      </div>
-    </div>
-    <div class="soil-gauge">
-      <div class="gauge-body">
-        <div class="gauge-fill"></div>
-        <div class="gauge-cover">50%</div>
-      </div>
+  <div class="header">
+    <div class="header-panel container">
+      <span class="app-title"><h1>Controller</h1></span>
+      <span class="time" id="time"></span>
     </div>
   </div>
 
-  <div class="ctrl-panel">
+  <div class="page-container container">
 
-    <div class="ctrl light">
-      <div class="ctrl-title">Lights</div>
-      <div class="toggleBtn">
-        <input type="checkbox" id="light-toggle-js" class="checkbox"/>
-        <label for="light-toggle-js" class="switch"></label>
+    <div class="stats-panel">
+      <div class="gauge-container glass">
+        <div id="temp-gauge" class="temp"></div>
+      </div>
+      <div class="gauge-container glass">
+        <div id="humid-gauge" class="humid"></div>
+      </div>
+      <div class="gauge-container glass">
+        <div id="soil-gauge" class="humid"></div>
       </div>
     </div>
 
-    <div class="ctrl heat">
-      <div class="ctrl-title">Heater</div>
-      <div class="toggleBtn">
-        <input type="checkbox" id="heat-toggle-js" class="checkbox"/>
-        <label for="heat-toggle-js" class="switch"></label>
+    <!-- <div class="stats-panel">
+      <div class="temp-gauge glass">
+        <div class="gauge-body">
+          <div class="gauge-fill"></div>
+          <div class="gauge-cover">50%</div>
+        </div>
       </div>
-    </div>
-
-    <div class="ctrl fan">
-      <div class="ctrl-title">Exhaust Fan</div>
-      <div class="toggleBtn">
-        <input type="checkbox" id="fan-toggle-js" class="checkbox"/>
-        <label for="fan-toggle-js" class="switch"></label>
+      <div class="humidity-gauge glass">
+        <div class="gauge-body">
+          <div class="gauge-fill"></div>
+          <div class="gauge-cover">50%</div>
+        </div>
       </div>
-    </div>
-
-    <div class="ctrl humidifier">
-      <div class="ctrl-title">Humidifier</div>
-      <div class="toggleBtn">
-        <input type="checkbox" id="humid-toggle-js" class="checkbox"/>
-        <label for="humid-toggle-js" class="switch"></label>
+      <div class="soil-gauge glass">
+        <div class="gauge-body">
+          <div class="gauge-fill"></div>
+          <div class="gauge-cover">50%</div>
+        </div>
       </div>
-    </div>
 
-    <div class="ctrl dehumidifier">
-      <div class="ctrl-title">Dehumidifier</div>
-      <div class="toggleBtn">
-        <input type="checkbox" id="dehumid-toggle-js" class="checkbox"/>
-        <label for="dehumid-toggle-js" class="switch"></label>
+    </div> -->
+
+    <div class="ctrl-panel glass">
+
+      <div class="ctrl light">
+        <div class="ctrl-title">Lights</div>
+        <div class="toggleBtn">
+          <input type="checkbox" id="light-toggle-js" class="checkbox"/>
+          <label for="light-toggle-js" class="switch"></label>
+        </div>
       </div>
-    </div>
 
-  </div>
+      <div class="ctrl heat">
+        <div class="ctrl-title">Heater</div>
+        <div class="toggleBtn">
+          <input type="checkbox" id="heat-toggle-js" class="checkbox"/>
+          <label for="heat-toggle-js" class="switch"></label>
+        </div>
+      </div>
 
-  
+      <div class="ctrl fan">
+        <div class="ctrl-title">Exhaust Fan</div>
+        <div class="toggleBtn">
+          <input type="checkbox" id="fan-toggle-js" class="checkbox"/>
+          <label for="fan-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+      <div class="ctrl humidifier">
+        <div class="ctrl-title">Humidifier</div>
+        <div class="toggleBtn">
+          <input type="checkbox" id="humid-toggle-js" class="checkbox"/>
+          <label for="humid-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+      <div class="ctrl dehumidifier">
+        <div class="ctrl-title">Dehumidifier</div>
+        <div class="toggleBtn">
+          <input type="checkbox" id="dehumid-toggle-js" class="checkbox"/>
+          <label for="dehumid-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+    </div> <!-- ctrl-panel-->
+</div> <!-- Page Container-->
 
 </body>
 </html>

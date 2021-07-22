@@ -1,5 +1,5 @@
 import { Gpio } from 'onoff';
-import { switches } from './Switches.js';
+import { switches } from './Switches.mjs';
 
 const light = new Gpio(26, 'out');
 const heat = new Gpio(27, 'out');

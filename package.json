@@ -2,7 +2,7 @@
   "name": "pi-sensor",
   "version": "1.0.0",
   "description": "A controller for a plugboard and sensors",
-  "main": "server.js",
+  "main": "server.mjs",
 
   "scripts": {
     "start": "node server",

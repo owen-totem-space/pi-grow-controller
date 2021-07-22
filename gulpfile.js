@@ -33,14 +33,16 @@ function cleaner() {
 
 function bsServer(cb) {
   browserSync.init({
-    server: { baseDir: './client' },
+    server: { baseDir: '/client/', directory: true },
+    port: 3030,
     notify: true,
   });
   cb();
 }
+
 function watcher() {
-  watch('*.html', browserSync.reload);
-  watch(stylesSrc, styles).on('change', browserSync.reload);
+  // watch('*.html', browserSync.reload);
+  watch(stylesSrc, styles).on('change', styles);
 }
 
 exports.cleaner = cleaner;
