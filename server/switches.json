@@ -1,0 +1,9 @@
+{
+  "light": "1",
+  "fan": "1",
+  "heater": "0",
+  "humidifier": "1",
+  "dehumidifier": "0",
+  "temperature": "30",
+  "humidity": "58"
+}

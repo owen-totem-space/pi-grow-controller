@@ -1,10 +1,14 @@
 class Switches {
   constructor(lightValue, heaterValue, fanValue, humidValue, dehumidValue) {
-    this.lightValue = lightValue;
-    this.heaterValue = heaterValue;
-    this.fanValue = fanValue;
-    this.humidValue = humidValue;
-    this.dehumidValue = dehumidValue;
+    if (Switches.instance == null) {
+      this.lightValue = lightValue;
+      this.heaterValue = heaterValue;
+      this.fanValue = fanValue;
+      this.humidValue = humidValue;
+      this.dehumidValue = dehumidValue;
+      Switches.instance = this;
+    }
+    return Switches.instance;
   }
 
   getLightState = () => {
@@ -47,4 +51,5 @@ class Switches {
     return this;
   };
 }
-export const switches = new Switches(1, 0, 0, 0, 0);
+const switches = new Switches(1, 0, 0, 0, 0);
+module.exports = switches;

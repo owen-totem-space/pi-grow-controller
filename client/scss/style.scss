@@ -61,6 +61,14 @@ body {
   }
 }
 
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0 0 1.5em 0;
+  padding: 0 1em 0.5em 1em;
+}
+
 .config-panel {
   color: #ccc;
   padding: 1em 2em;
@@ -68,19 +76,30 @@ body {
   margin-bottom: 40px;
 
   & .config {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1em 0 1em;
+    padding: 0 1em 1em 1em;
 
     &:not(:last-child) {
       margin: 0 0 1.2em 0;
-      padding-bottom: 1em;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
   }
 
   & .config-title {
     font-size: 1.5rem;
+  }
+
+  & .config-form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: auto;
+  }
+
+  .config-input {
+    display: flex;
+    justify-content: space-between;
+    &:not(:last-child) {
+      margin-bottom: 1em;
+    }
   }
 }
 

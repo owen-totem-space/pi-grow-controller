@@ -1,5 +1,10 @@
 // import ApexCharts from 'apexcharts';
-let temp = 34;
+// import { humidityAutomation } from './classes/Humidity-auto.js';
+// import tempAutomation from './classes/Temp-auto.js';
+
+// let temp = tempAutomation.getTemp();
+let temp = 21;
+
 // Chart Options
 const tempOptions = {
   // Data
@@ -91,7 +96,18 @@ const tempChart = new ApexCharts(document.querySelector('#temp-gauge'), tempOpti
 // Render Chart
 tempChart.render();
 
-let humidity = 60;
+let humidity = await fetch('/getState')
+  .then(function (res) {
+    return res.json();
+  })
+  .then(function (data) {
+    console.log(data.humidity);
+    return data.humidity;
+  });
+
+// async _fetchState() {
+
+// }
 // Chart Options
 const humidOptions = {
   // Data
@@ -276,3 +292,13 @@ const soilChart = new ApexCharts(document.querySelector('#soil-gauge'), soilOpti
 
 // Render Chart
 soilChart.render();
+
+/**
+ * Update Charts
+ */
+function update(chart, getValueFunction) {
+  chart.updateSeries([getValueFunction()]);
+}
+// setInterval(update, 5000, humidChart, humidityAutomation.getHumidity);
+// setInterval(update, 5000, soilChart, )
+// setInterval(update, 5000, tempChart, tempAutomation.getTemp);
