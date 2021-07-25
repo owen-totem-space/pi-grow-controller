@@ -1,26 +1,54 @@
 const appUtil = require('./appUtil.js');
-// Timer for lights.
-// time inputs for on and off.
-// button for 24hrs
+// const dayjs = require('dayjs');
+// import customParseFormat from 'dayjs/plugin/customParseFormat';
+// dayjs.extend(customParseFormat);
+
 class Lights {
   constructor() {
+    this.io = null;
     this.socket = null;
-    this.state = 1;
-    this.timeOn = true;
-    this.timeOff = false;
+    this.state = appUtil.getStateFromDatabase('light');
+    this.timeOn = appUtil.getFromDatabase('lightOn');
+    this.timeOff = appUtil.getFromDatabase('lightOff');
   }
   // Public
   getTimeOn = () => {};
-  setTimeOn = () => {};
-  getTimeOff = () => {};
-  setTimeOff = () => {};
 
-  setSocket = (socket) => {
-    this.socket = socket;
-    return socket;
+  setTimeOn = (time) => {
+    this.timeOn = time;
+    return this;
   };
 
-  manageLight = () => {};
+  getTimeOff = () => {};
+
+  setTimeOff = (time) => {
+    this.timeOff = time;
+    return this;
+  };
+
+  setSocket = (io, socket) => {
+    this.socket = socket;
+    return this;
+  };
+
+  manageLight = () => {
+    setInterval(() => {
+      const timeOn = appUtil.parseTime(this.timeOn);
+      const timeOff = appUtil.parseTime(this.timeOff);
+      const timeNow = appUtil.timeNow();
+      // console.log('time on: ' + timeOn);
+      // console.log('time off: ' + timeOff);
+      // console.log('timenow: ' + timeNow);
+
+      if (timeNow === timeOn) {
+        this._switchLightOn();
+      }
+      if (timeNow === timeOff) {
+        this._switchLightOff();
+      }
+    }, 20000);
+    console.log('Light automation active');
+  };
 
   // Private
   _sendMsg = (msg, val) => {
@@ -29,21 +57,17 @@ class Lights {
   };
 
   _switchLightOn = () => {
-    const lightState = appUtil.getStateFromDatabase('light');
-
-    if (lightState === 1) return;
-    appUtil.writeToDatabase(1, 'light');
+    if (this.state === 1) return;
+    appUtil.writeToDatabase('light', 1);
     this._sendMsg('lightSet', 1);
     console.log('Light switched on by automation');
   };
 
   _switchLightOff = () => {
-    const lightState = appUtil.getStateFromDatabase('light');
-
-    if (lightState === 0) return;
-    appUtil.writeToDatabase(0, 'light');
+    if (this.state === 0) return;
+    appUtil.writeToDatabase('light', 0);
     this._sendMsg('lightSet', 0);
-    console.log('Light switched on by automation');
+    console.log('Light switched off by automation');
   };
 }
 

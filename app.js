@@ -1,3 +1,4 @@
+// Node and NPM modules
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
@@ -5,11 +6,16 @@ const express = require('express');
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server);
-const appUtil = require('./server/appUtil.js');
+
+// My modules
+const appUtil = require('./server/appUtil');
+const { uiEvent, uiInit } = require('./server/uiHandler');
 const humidityAutomation = require('./server/Humidity-auto.js');
 const tempAutomation = require('./server/Temp-auto.js');
 const lightAutomation = require('./server/Light-auto.js');
+const fanAutomation = require('./server/Fan-auto.js');
 
+// Variables
 const PORT = 3000 || process.env.PORT;
 
 // Middleware and static files
@@ -24,62 +30,84 @@ app.get('/getState', function (req, res) {
   });
 });
 
+app.post('/light-settings', (req, res) => {
+  const lightOn = req.body['switch-light-on'];
+  // console.log(lightOn);
+  appUtil.writeToDatabase('lightOn', lightOn);
+
+  const lightOff = req.body['switch-light-off'];
+  appUtil.writeToDatabase('lightOff', lightOff);
+
+  lightAutomation.setTimeOn(lightOn);
+  lightAutomation.setTimeOff(lightOff);
+  res.redirect('/');
+});
+
+app.post('/fan-settings', (req, res) => {
+  const fanOn = req.body['switch-fan-on'];
+  // console.log(fanOn);
+  appUtil.writeToDatabase('fanOn', fanOn);
+
+  const fanOff = req.body['switch-fan-off'];
+  appUtil.writeToDatabase('fanOff', fanOff);
+
+  fanAutomation.setTimeOn(fanOn);
+  fanAutomation.setTimeOff(fanOff);
+  res.redirect('/');
+});
+
 app.post('/temp-settings', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
+  const tempLow = req.body['temp-low'];
+  appUtil.writeToDatabase('tempLow', tempLow);
+
+  const tempHigh = req.body['temp-high'];
+  appUtil.writeToDatabase('tempHigh', tempHigh);
+
+  tempAutomation.setLowTemp(tempLow);
+  tempAutomation.setHighTemp(tempHigh);
+  res.redirect('/');
+});
+
+app.post('/humidity-settings', (req, res) => {
+  // console.log(req.body);
+  const humidityLow = req.body['humidity-low'];
+  appUtil.writeToDatabase('humidityLow', humidityLow);
+
+  const humidityHigh = req.body['humidity-high'];
+  appUtil.writeToDatabase('humidityHigh', humidityHigh);
+
+  humidityAutomation.setLowHumidity(humidityLow);
+  humidityAutomation.setHighHumidity(humidityHigh);
+  res.redirect('/');
 });
 
 // Start server
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  setInterval(humidityAutomation.manageHumidity, 5000);
-  setInterval(tempAutomation.manageTemp, 5000);
-  lightAutomation.manageLight();
+  initAutomation();
 });
 
-// socket.io
-io.on('connection', (socket) => {
+io.on('connection', onConnection);
+
+// Functions
+function initAutomation() {
+  humidityAutomation.manageHumidity();
+  tempAutomation.manageTemp();
+  lightAutomation.manageLight();
+  fanAutomation.manageFan();
+}
+
+function onConnection(socket) {
   console.log('A new client has connected');
-  socket.emit('lightSet', appUtil.getStateFromDatabase('light'));
-  socket.emit('fanSet', appUtil.getStateFromDatabase('fan'));
-  socket.emit('heatSet', appUtil.getStateFromDatabase('heater'));
-  socket.emit('humidSet', appUtil.getStateFromDatabase('humidifier'));
-  socket.emit('dehumidSet', appUtil.getStateFromDatabase('dehumidifier'));
-
-  socket.on('lightSwitch', (newValue) => {
-    appUtil.writeToDatabase(newValue, 'light');
-    io.emit('lightSet', newValue);
-    console.log('light switched in UI');
-  });
-
-  socket.on('fanSwitch', (newValue) => {
-    appUtil.writeToDatabase(newValue, 'fan');
-    io.emit('fanSet', newValue);
-    console.log('fan switched in UI');
-  });
-
-  socket.on('heatSwitch', (newValue) => {
-    appUtil.writeToDatabase(newValue, 'heater');
-    io.emit('heatSet', newValue);
-    console.log('heater switched in UI');
-  });
-
-  socket.on('humidSwitch', (newValue) => {
-    appUtil.writeToDatabase(newValue, 'humidifier');
-    io.emit('humidSet', newValue);
-    console.log('humidifier switched in UI');
-  });
-
-  socket.on('dehumidSwitch', (newValue) => {
-    appUtil.writeToDatabase(newValue, 'dehumidifier');
-    io.emit('dehumidSet', newValue);
-    console.log('dehumidifier switched in UI');
-  });
+  uiInit(io, socket);
+  uiEvent(io, socket);
+  humidityAutomation.setSocket(io, socket);
+  tempAutomation.setSocket(io, socket);
+  lightAutomation.setSocket(io, socket);
+  fanAutomation.setSocket(io, socket);
 
   socket.on('disconnect', () => {
     console.log('A client has disconnected');
   });
-
-  humidityAutomation.setSocket(socket);
-  tempAutomation.setSocket(socket);
-  lightAutomation.setSocket(socket);
-});
+}

@@ -3,7 +3,7 @@
 // import tempAutomation from './classes/Temp-auto.js';
 
 // let temp = tempAutomation.getTemp();
-let temp = 21;
+let temp = 50;
 
 // Chart Options
 const tempOptions = {
@@ -62,7 +62,7 @@ const tempOptions = {
         },
         value: {
           formatter: function (val) {
-            return parseInt(val) + ' °C';
+            return parseInt(val / 2) + ' °C';
           },
           offsetY: 10,
           color: '#ccc',

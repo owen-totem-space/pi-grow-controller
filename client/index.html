@@ -95,16 +95,16 @@
 
       <div class="light-timer config">
         <div class="image"></div>
-        <form class="config-form">
+        <form class="config-form"  id="light-settings" action="/light-settings" method="POST">
           <div class="config-input">
-            <label for="switch-lights-on">Lights On</label>
-            <input id="switch-lights-on" type="time" required>
+            <label for="switch-light-on">Lights On</label>
+            <input id="switch-light-on" type="time" name="switch-light-on" required>
           </div>
           <div class="config-input">
-            <label for="switch-lights-off">Lights Off</label>
-            <input id="switch-lights-off" type="time" required>
+            <label for="switch-light-off">Lights Off</label>
+            <input id="switch-light-off" type="time" name="switch-light-off" required>
           </div>
-          <input type="submit">
+          <button type="submit">Save</button>
         </form>
       </div>
 
@@ -118,16 +118,16 @@
       </div>
       <div class="fan-timer config">
         <div class="image"></div>
-        <form class="config-form">
+        <form class="config-form" id="fan-settings" action="/fan-settings" method="POST">
           <div class="config-input">
             <label for="switch-fan-on">Fan On</label>
-            <input id="switch-fan-on" type="time" required>
+            <input id="switch-fan-on" type="time" name="switch-fan-on" required>
           </div>
           <div class="config-input">
             <label for="switch-fan-off">Fan Off</label>
-            <input id="switch-fan-off" type="time" required>
+            <input id="switch-fan-off" type="time" name="switch-fan-off" required>
           </div>
-          <input type="submit">
+          <button type="submit">Save</button>
         </form>
   
       </div>
@@ -147,16 +147,16 @@
 
       <div class="temp-config config">
         <div class="image"></div>
-        <form class="config-form" action="/temp-settings" method="POST">
+        <form class="config-form" id="temperature-settings" action="/temp-settings" method="POST">
           <div class="config-input">
             <label for="temp-high">Temp High</label>
-            <input id="temp-high" type="number" min="20" max="30" value="27" name="temp-high" required>
+            <input id="temp-high" type="number" min="20" max="30" name="temp-high" required>
           </div>
           <div class="config-input">
             <label for="temp-low">Temp Low</label>
-            <input id="temp-low" type="number" min="20" max="30" value="23" name="temp-low" required>
+            <input id="temp-low" type="number" min="20" max="30" name="temp-low" required>
           </div>
-          <input type="submit">
+          <button type="submit">Save</button>
         </form>
       </div>
 
@@ -170,16 +170,16 @@
       </div>
       <div class="humid-config config">
         <div class="image"></div>
-        <form class="config-form">
+        <form class="config-form" id="humidity-settings" action="/humidity-settings" method="POST">
           <div class="config-input">
             <label for="humidity-high">Humidity High</label>
-            <input id="humidity-high" type="number" min="0" max="100" value="70">
+            <input id="humidity-high" type="number" min="0" max="100" name="humidity-high" required>
           </div>
           <div class="config-input">
             <label for="humidity-low">Humidity Low</label>
-            <input id="humidity-low" type="number" min="0" max="100" value="60">
+            <input id="humidity-low" type="number" min="0" max="100" name="humidity-low" required>
           </div>
-          <input type="submit">
+          <button type="submit">Save</button>
         </form>
       </div>
 

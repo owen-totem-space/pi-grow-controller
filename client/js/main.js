@@ -1,18 +1,49 @@
 // import { gpioStartup, runGPIO } from './gpio.js';
 
-// import tempAutomation from '../../server/classes/Temp-auto.js';
+// import dayjs from 'dayjs';
+// import customParseFormat from 'dayjs/plugin/customParseFormat';
+// dayjs.extend(customParseFormat);
+import { settingsForm } from './forms.js';
 
 (function () {
   // Load socket.io
   const socket = io();
   // gpioStartup();
   // runGPIO(socket);
-  // Store Button Elements
+
+  /**
+   * Submit forms with fetch
+   */
+  const lightForm = document.getElementById('light-settings');
+  lightForm.addEventListener('submit', (e) => settingsForm(e, lightForm, '/light-settings'));
+
+  const fanForm = document.getElementById('fan-settings');
+  fanForm.addEventListener('submit', (e) => settingsForm(e, fanForm, '/fan-settings'));
+
+  const tempForm = document.getElementById('temperature-settings');
+  tempForm.addEventListener('submit', (e) => settingsForm(e, tempForm, '/temp-settings'));
+
+  const humidityForm = document.getElementById('humidity-settings');
+  humidityForm.addEventListener('submit', (e) => settingsForm(e, humidityForm, '/humidity-settings'));
+
+  /**
+   * Add Event Listeners on buttons
+   * Send messages to server about state
+   */
   const lightSwitch = document.getElementById('light-toggle-js');
+  lightSwitch.addEventListener('change', () => eventMsg(lightSwitch, 'lightSwitch'));
+
   const heatSwitch = document.getElementById('heat-toggle-js');
+  heatSwitch.addEventListener('change', () => eventMsg(heatSwitch, 'heatSwitch'));
+
   const fanSwitch = document.getElementById('fan-toggle-js');
+  fanSwitch.addEventListener('change', () => eventMsg(fanSwitch, 'fanSwitch'));
+
   const humidSwitch = document.getElementById('humid-toggle-js');
+  humidSwitch.addEventListener('change', () => eventMsg(humidSwitch, 'humidSwitch'));
+
   const dehumidSwitch = document.getElementById('dehumid-toggle-js');
+  dehumidSwitch.addEventListener('change', () => eventMsg(dehumidSwitch, 'dehumidSwitch'));
 
   /**
    * Manage Messages from socket.io server
@@ -34,72 +65,31 @@
   });
 
   /**
-   * Add Event Listeners on buttons
-   * Send messages to server about state
-   */
-  lightSwitch.addEventListener('change', () => {
-    if (lightSwitch.checked) {
-      socket.emit('lightSwitch', 1);
-    } else {
-      socket.emit('lightSwitch', 0);
-    }
-  });
-
-  heatSwitch.addEventListener('change', () => {
-    if (heatSwitch.checked) {
-      socket.emit('heatSwitch', 1);
-    } else {
-      socket.emit('heatSwitch', 0);
-    }
-  });
-
-  fanSwitch.addEventListener('change', () => {
-    if (fanSwitch.checked) {
-      socket.emit('fanSwitch', 1);
-    } else {
-      socket.emit('fanSwitch', 0);
-    }
-  });
-
-  humidSwitch.addEventListener('change', () => {
-    if (humidSwitch.checked) {
-      socket.emit('humidSwitch', 1);
-    } else {
-      socket.emit('humidSwitch', 0);
-    }
-  });
-
-  dehumidSwitch.addEventListener('change', () => {
-    if (dehumidSwitch.checked) {
-      socket.emit('dehumidSwitch', 1);
-    } else {
-      socket.emit('dehumidSwitch', 0);
-    }
-  });
-
-  /**
    * Functions
    */
-  const switchOn = (el) => {
+  function eventMsg(el, msg) {
+    if (el.checked) {
+      socket.emit(msg, 1);
+    }
+    if (!el.checked) {
+      socket.emit(msg, 0);
+    }
+  }
+
+  function switchOn(el) {
     el.dataset.toggle = 'on';
     el.checked = true;
     console.log(el.id + ' UI switched on');
-  };
-  const switchOff = (el) => {
+  }
+  function switchOff(el) {
     el.dataset.toggle = 'off';
     el.checked = false;
-    console.log(el.id + ' UI switched on');
-  };
-  const flipSwitch = (newValue, el) => {
+    console.log(el.id + ' UI switched off');
+  }
+  function flipSwitch(newValue, el) {
     if (newValue === 0) switchOff(el);
     if (newValue === 1) switchOn(el);
-  };
-
-  /**
-   * Automation
-   */
-
-  // setInterval(tempAutomation.manageTemp, 5000, socket);
+  }
 })();
 
 // async _fetchState() {

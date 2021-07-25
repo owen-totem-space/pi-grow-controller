@@ -8,9 +8,12 @@ class Humidity {
     this.humidity = 65;
     this.highHumid = 70;
     this.lowHumid = 60;
+    this.humidifierState = appUtil.getStateFromDatabase('humidifier');
+    this.fanState = appUtil.getStateFromDatabase('fan');
+    this.io = null;
     this.socket = null;
     // update humidity value every minute
-    setInterval(this._listenToHumidity, 5000);
+    this._listenToHumidity();
   }
 
   /**
@@ -34,25 +37,31 @@ class Humidity {
     return this.humidity;
   };
 
-  setSocket = (socket) => {
+  setSocket = (io, socket) => {
+    this.io = io;
     this.socket = socket;
-    return socket;
+    return this;
   };
 
   manageHumidity = () => {
-    const humidity = this.getHumidity();
-    const lowHumidity = this.getLowHumidity();
-    const highHumidity = this.getHighHumidity();
+    setInterval(() => {
+      const humidity = this.getHumidity();
+      const lowHumidity = this.getLowHumidity();
+      const highHumidity = this.getHighHumidity();
 
-    if (humidity <= lowHumidity) {
-      this._switchHumidifierOn();
-    }
-    if (humidity >= highHumidity) {
-      this._switchFanOn();
-    }
-    if (humidity >= this._medianHumidity()) {
-      this._switchHumidifierOff();
-    }
+      if (humidity <= lowHumidity) {
+        this._switchHumidifierOn();
+        // console.log('too humid');
+      }
+      if (humidity >= highHumidity) {
+        this._switchFanOn();
+        // console.log('too dry');
+      }
+      if (humidity >= this._medianHumidity()) {
+        this._switchHumidifierOff();
+        // console.log('humid above median');
+      }
+    }, 5000);
   };
 
   /**
@@ -64,7 +73,9 @@ class Humidity {
   };
 
   _listenToHumidity = () => {
-    this.humidity = appUtil.getStateFromDatabase('humidity'); // this will be value from sensor
+    setInterval(() => {
+      this.humidity = appUtil.getStateFromDatabase('humidity'); // this will be value from sensor
+    }, 5000);
     // console.log('listening to humidity');
   };
 
@@ -78,37 +89,37 @@ class Humidity {
    *
    */
   _switchHumidifierOn = () => {
-    const humidifierState = appUtil.getStateFromDatabase('humidifier');
+    // const humidifierState = appUtil.getStateFromDatabase('humidifier');
 
-    if (humidifierState === 1) return;
-    appUtil.writeToDatabase(1, 'humidifier');
+    if (this.humidifierState === 1) return;
+    appUtil.writeToDatabase('humidifier', 1);
     this._sendMsg('humidSet', 1);
     console.log('humidifier switched on by automation');
   };
 
   _switchHumidifierOff = () => {
-    const humidifierState = appUtil.getStateFromDatabase('humidifier');
+    // const humidifierState = appUtil.getStateFromDatabase('humidifier');
 
-    if (humidifierState === 0) return;
-    appUtil.writeToDatabase(0, 'humidifier');
+    if (this.humidifierState === 0) return;
+    appUtil.writeToDatabase('humidifier', 0);
     this._sendMsg('humidSet', 0);
     console.log('humidifier switched off by automation');
   };
 
   _switchFanOn = () => {
-    const fanState = appUtil.getStateFromDatabase('fan');
+    // const fanState = appUtil.getStateFromDatabase('fan');
 
-    if (fanState === 1) return;
-    appUtil.writeToDatabase(1, 'fan');
+    if (this.fanState === 1) return;
+    appUtil.writeToDatabase('fan', 0);
     this._sendMsg('fanSet', 1);
     console.log('fan switched on by automation');
   };
 
   _switchFanOff = () => {
-    const fanState = appUtil.getStateFromDatabase('fan');
+    // const fanState = appUtil.getStateFromDatabase('fan');
 
-    if (fanState === 0) return;
-    appUtil.writeToDatabase(0, 'fan');
+    if (this.fanState === 0) return;
+    appUtil.writeToDatabase('fan', 0);
     this._sendMsg('fanSet', 0);
     console.log('fan switched off by automation');
   };

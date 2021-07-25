@@ -4,11 +4,11 @@ const appUtil = require('./appUtil.js');
 class Temp {
   constructor() {
     this.temp = 25;
-    this.highTemp = 27;
-    this.lowTemp = 24;
+    this.highTemp = appUtil.getStateFromDatabase('tempHigh');
+    this.lowTemp = appUtil.getStateFromDatabase('tempLow');
     this.socket = null;
     // update temperature value every minute
-    setInterval(this._listenToTemp, 5000);
+    this._listenToTemp();
   }
   // Public
   getHighTemp = () => {
@@ -23,6 +23,7 @@ class Temp {
   };
   setLowTemp = (temp) => {
     this.lowTemp = temp;
+    console.log(this.lowTemp);
     return this;
   };
   getTemp = () => {
@@ -35,20 +36,25 @@ class Temp {
   };
 
   manageTemp = () => {
-    const temp = this.getTemp();
-    const lowTemp = this.getLowTemp();
-    const highTemp = this.getHighTemp();
+    setInterval(() => {
+      const temp = this.getTemp();
+      const lowTemp = this.getLowTemp();
+      const highTemp = this.getHighTemp();
 
-    if (temp <= lowTemp) {
-      this._switchHeatOn();
-    }
-    if (temp >= highTemp) {
-      this._switchHeatOff();
-      this._switchFanOn();
-    }
-    if (temp >= this._medianTemp()) {
-      this._switchHeatOff();
-    }
+      if (temp <= lowTemp) {
+        this._switchHeatOn();
+        // console.log('temp too low');
+      }
+      if (temp >= highTemp) {
+        this._switchHeatOff();
+        this._switchFanOn();
+        // console.log('temp too high');
+      }
+      if (temp >= this._medianTemp()) {
+        this._switchHeatOff();
+        // console.log('Temp above median');
+      }
+    }, 5000);
   };
 
   // Private
@@ -58,9 +64,9 @@ class Temp {
   };
 
   _listenToTemp = () => {
-    // function to get temperature value from sensor and update this.temp
-    let temp = appUtil.getStateFromDatabase('temperature');
-    this.temp = temp;
+    setInterval(() => {
+      this.temp = appUtil.getStateFromDatabase('temperature');
+    }, 5000);
   };
 
   _medianTemp = () => {
@@ -73,7 +79,7 @@ class Temp {
     const heaterState = appUtil.getStateFromDatabase('heater');
 
     if (heaterState === 1) return;
-    appUtil.writeToDatabase(1, 'heater');
+    appUtil.writeToDatabase('heater', 1);
     this._sendMsg('heatSet', 1);
     console.log('Heater switched on by automation');
   };
@@ -82,7 +88,7 @@ class Temp {
     const heaterState = appUtil.getStateFromDatabase('heater');
 
     if (heaterState === 0) return;
-    appUtil.writeToDatabase(0, 'heater');
+    appUtil.writeToDatabase('heater', 0);
     this._sendMsg('heatSet', 0);
     console.log('Heater switched off by automation');
   };
@@ -91,7 +97,7 @@ class Temp {
     const fanState = appUtil.getStateFromDatabase('fan');
 
     if (fanState === 1) return;
-    appUtil.writeToDatabase(1, 'fan');
+    appUtil.writeToDatabase('fan', 1);
     this._sendMsg('fanSet', 1);
     console.log('fan switched on by automation');
   };
@@ -100,7 +106,7 @@ class Temp {
     const fanState = appUtil.getStateFromDatabase('fan');
 
     if (fanState === 0) return;
-    appUtil.writeToDatabase(0, 'fan');
+    appUtil.writeToDatabase('fan', 0);
     this._sendMsg('fanSet', 0);
     console.log('fan switched off by automation');
   };
