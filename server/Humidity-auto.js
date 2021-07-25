@@ -51,17 +51,18 @@ class Humidity {
 
       if (humidity <= lowHumidity) {
         this._switchHumidifierOn();
-        // console.log('too humid');
+        // console.log('too dry');
       }
       if (humidity >= highHumidity) {
         this._switchFanOn();
-        // console.log('too dry');
+        // console.log('too humid');
       }
       if (humidity >= this._medianHumidity()) {
         this._switchHumidifierOff();
         // console.log('humid above median');
       }
     }, 5000);
+    console.log('Humidity automation active');
   };
 
   /**
@@ -89,36 +90,36 @@ class Humidity {
    *
    */
   _switchHumidifierOn = () => {
-    // const humidifierState = appUtil.getStateFromDatabase('humidifier');
+    const humidifierState = appUtil.getStateFromDatabase('humidifier');
 
-    if (this.humidifierState === 1) return;
+    if (humidifierState === 1) return;
     appUtil.writeToDatabase('humidifier', 1);
     this._sendMsg('humidSet', 1);
     console.log('humidifier switched on by automation');
   };
 
   _switchHumidifierOff = () => {
-    // const humidifierState = appUtil.getStateFromDatabase('humidifier');
+    const humidifierState = appUtil.getStateFromDatabase('humidifier');
 
-    if (this.humidifierState === 0) return;
+    if (humidifierState === 0) return;
     appUtil.writeToDatabase('humidifier', 0);
     this._sendMsg('humidSet', 0);
     console.log('humidifier switched off by automation');
   };
 
   _switchFanOn = () => {
-    // const fanState = appUtil.getStateFromDatabase('fan');
+    const fanState = appUtil.getStateFromDatabase('fan');
 
-    if (this.fanState === 1) return;
+    if (fanState === 1) return;
     appUtil.writeToDatabase('fan', 0);
     this._sendMsg('fanSet', 1);
     console.log('fan switched on by automation');
   };
 
   _switchFanOff = () => {
-    // const fanState = appUtil.getStateFromDatabase('fan');
+    const fanState = appUtil.getStateFromDatabase('fan');
 
-    if (this.fanState === 0) return;
+    if (fanState === 0) return;
     appUtil.writeToDatabase('fan', 0);
     this._sendMsg('fanSet', 0);
     console.log('fan switched off by automation');

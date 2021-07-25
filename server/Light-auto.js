@@ -57,6 +57,8 @@ class Lights {
   };
 
   _switchLightOn = () => {
+    this.state = appUtil.getStateFromDatabase('light');
+
     if (this.state === 1) return;
     appUtil.writeToDatabase('light', 1);
     this._sendMsg('lightSet', 1);
@@ -64,6 +66,8 @@ class Lights {
   };
 
   _switchLightOff = () => {
+    this.state = appUtil.getStateFromDatabase('light');
+
     if (this.state === 0) return;
     appUtil.writeToDatabase('light', 0);
     this._sendMsg('lightSet', 0);

@@ -6,6 +6,8 @@ class Temp {
     this.temp = 25;
     this.highTemp = appUtil.getStateFromDatabase('tempHigh');
     this.lowTemp = appUtil.getStateFromDatabase('tempLow');
+    this.heaterState = appUtil.getStateFromDatabase('heater');
+    this.fanState = appUtil.getStateFromDatabase('fan');
     this.socket = null;
     // update temperature value every minute
     this._listenToTemp();
@@ -55,6 +57,7 @@ class Temp {
         // console.log('Temp above median');
       }
     }, 5000);
+    console.log('Temperature automation active');
   };
 
   // Private

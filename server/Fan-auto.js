@@ -38,9 +38,9 @@ class Fan {
       const timeOn = appUtil.parseTime(this.timeOn);
       const timeOff = appUtil.parseTime(this.timeOff);
       const timeNow = appUtil.timeNow();
-      console.log('time on: ' + timeOn);
-      console.log('time off: ' + timeOff);
-      console.log('timenow: ' + timeNow);
+      // console.log('time on: ' + timeOn);
+      // console.log('time off: ' + timeOff);
+      // console.log('timenow: ' + timeNow);
 
       if (timeNow === timeOn) {
         this._switchFanOn();
@@ -59,6 +59,8 @@ class Fan {
   };
 
   _switchFanOn = () => {
+    this.state = appUtil.getStateFromDatabase('fan');
+
     if (this.state === 1) return;
     appUtil.writeToDatabase('fan', 1);
     this._sendMsg('fanSet', 1);
@@ -66,6 +68,8 @@ class Fan {
   };
 
   _switchFanOff = () => {
+    this.state = appUtil.getStateFromDatabase('fan');
+
     if (this.state === 0) return;
     appUtil.writeToDatabase('fan', 0);
     this._sendMsg('fanSet', 0);

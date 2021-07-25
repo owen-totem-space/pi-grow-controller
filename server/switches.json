@@ -1,6 +1,6 @@
 {
   "light": "0",
-  "fan": "1",
+  "fan": "0",
   "heater": "1",
   "humidifier": "1",
   "dehumidifier": "0",
@@ -10,8 +10,8 @@
   "tempLow": "28",
   "humidityLow": "60",
   "humidityHigh": "70",
-  "lightOn": "22:19",
-  "lightOff": "22:21",
-  "fanOn": "22:19",
-  "fanOff": "22:21"
+  "lightOn": "22:48",
+  "lightOff": "22:49",
+  "fanOn": "22:48",
+  "fanOff": "22:49"
 }
