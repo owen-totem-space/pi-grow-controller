@@ -125,6 +125,7 @@ body {
 }
 .config-panel .config {
   padding: 0 1em 1em 1em;
+  display: flex;
 }
 .config-panel .config:not(:last-child) {
   margin: 0 0 1.2em 0;
@@ -144,6 +145,18 @@ body {
 }
 .config-panel .config-input:not(:last-child) {
   margin-bottom: 1em;
+}
+.config-panel .current-settings {
+  width: 50%;
+}
+.config-panel .current-settings-title {
+  margin-bottom: 1.5em;
+}
+.config-panel .value-wrapper {
+  display: flex;
+}
+.config-panel .config-item {
+  margin-right: 2em;
 }
 
 /** ####################################################################### */

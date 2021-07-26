@@ -1,18 +1,17 @@
 const appUtil = require('./appUtil.js');
-// If humidity gets high, turn on fan or dehumidifier or both.
-// If humidity gets low, turn on humidifier.
-// TODO: add option to turn on/off auto manage humidity. wrap _manageHumdity in constructor with if statement
+
+// TODO: Set Timers to 1 minute
 
 class Humidity {
   constructor() {
-    this.humidity = 65;
-    this.highHumid = 70;
-    this.lowHumid = 60;
+    this.humidity = appUtil.getStateFromDatabase('humidity');
+    this.highHumid = appUtil.getStateFromDatabase('humidityHigh');
+    this.lowHumid = appUtil.getStateFromDatabase('humidityLow');
     this.humidifierState = appUtil.getStateFromDatabase('humidifier');
     this.fanState = appUtil.getStateFromDatabase('fan');
     this.io = null;
     this.socket = null;
-    // update humidity value every minute
+
     this._listenToHumidity();
   }
 

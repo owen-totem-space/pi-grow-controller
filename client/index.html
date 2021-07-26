@@ -94,7 +94,13 @@
       </div>
 
       <div class="light-timer config">
-        <div class="image"></div>
+        <div class="current-settings">
+          <div class="current-settings-title">Current Settings</div>
+          <div class="value-wrapper">
+            <div class="config-item">Time On: <span id="light-time-on-js"></span></div>
+            <div class="config-item">Time Off: <span id="light-time-off-js"></span></div>
+          </div>
+        </div>
         <form class="config-form"  id="light-settings" action="/light-settings" method="POST">
           <div class="config-input">
             <label for="switch-light-on">Lights On</label>
@@ -117,7 +123,13 @@
         </div>
       </div>
       <div class="fan-timer config">
-        <div class="image"></div>
+        <div class="current-settings">
+          <div class="current-settings-title">Current Settings</div>
+          <div class="value-wrapper">
+            <div class="config-item">Time On: <span id="fan-time-on-js"></span></div>
+            <div class="config-item">Time Off: <span id="fan-time-off-js"></span></div>
+        </div>
+        </div>
         <form class="config-form" id="fan-settings" action="/fan-settings" method="POST">
           <div class="config-input">
             <label for="switch-fan-on">Fan On</label>
@@ -146,7 +158,13 @@
       </div>
 
       <div class="temp-config config">
-        <div class="image"></div>
+        <div class="current-settings">
+          <div class="current-settings-title">Current Settings</div>
+          <div class="value-wrapper">
+            <div class="config-item">Temp High: <span id="temp-high-js"></span></div>
+            <div class="config-item">Temp Low: <span id="temp-low-js"></span></div>
+          </div>
+        </div>
         <form class="config-form" id="temperature-settings" action="/temp-settings" method="POST">
           <div class="config-input">
             <label for="temp-high">Temp High</label>
@@ -169,7 +187,13 @@
         </div>
       </div>
       <div class="humid-config config">
-        <div class="image"></div>
+        <div class="current-settings">
+          <div class="current-settings-title">Current Settings</div>
+          <div class="value-wrapper">
+            <div class="config-item">Humidity High: <span id="humidity-high-js"></span></div>
+            <div class="config-item">Humidity Low: <span id="humidity-low-js"></span></div>
+          </div>
+        </div>
         <form class="config-form" id="humidity-settings" action="/humidity-settings" method="POST">
           <div class="config-input">
             <label for="humidity-high">Humidity High</label>

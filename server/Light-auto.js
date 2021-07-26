@@ -1,7 +1,4 @@
 const appUtil = require('./appUtil.js');
-// const dayjs = require('dayjs');
-// import customParseFormat from 'dayjs/plugin/customParseFormat';
-// dayjs.extend(customParseFormat);
 
 class Lights {
   constructor() {

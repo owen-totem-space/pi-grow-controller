@@ -1,3 +1,4 @@
+import { getSettings } from './fetchSettings.js';
 export { settingsForm };
 
 function settingsForm(e, formEl, url) {
@@ -19,4 +20,6 @@ function settingsForm(e, formEl, url) {
     })
     // .then((data) => console.log(data))
     .catch((err) => console.log(err));
+
+  getSettings('/getState');
 }

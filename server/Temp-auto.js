@@ -1,15 +1,16 @@
 const appUtil = require('./appUtil.js');
-// If temperature gets too hot, turn on fan.
-// If temperature gets too low, turn on heater.
+
+// TODO: Set timers to 1 minute
 class Temp {
   constructor() {
-    this.temp = 25;
+    this.temp = appUtil.getStateFromDatabase('temperature');
     this.highTemp = appUtil.getStateFromDatabase('tempHigh');
     this.lowTemp = appUtil.getStateFromDatabase('tempLow');
     this.heaterState = appUtil.getStateFromDatabase('heater');
     this.fanState = appUtil.getStateFromDatabase('fan');
+    this.io = null;
     this.socket = null;
-    // update temperature value every minute
+
     this._listenToTemp();
   }
   // Public

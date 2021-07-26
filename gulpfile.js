@@ -33,7 +33,7 @@ function cleaner() {
 
 function bsServer(cb) {
   browserSync.init({
-    server: { baseDir: '/client/', directory: true },
+    server: { baseDir: './client', directory: true },
     port: 3030,
     notify: true,
   });

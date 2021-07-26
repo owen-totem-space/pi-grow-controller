@@ -4,6 +4,7 @@
 // import customParseFormat from 'dayjs/plugin/customParseFormat';
 // dayjs.extend(customParseFormat);
 import { settingsForm } from './forms.js';
+import { getSettings } from './fetchSettings.js';
 
 (function () {
   // Load socket.io
