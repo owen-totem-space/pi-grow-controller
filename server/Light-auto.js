@@ -1,4 +1,5 @@
 const appUtil = require('./appUtil.js');
+const { gpio, switchGPIO } = require('./gpio.js');
 
 class Lights {
   constructor() {
@@ -58,6 +59,7 @@ class Lights {
 
     if (this.state === 1) return;
     appUtil.writeToDatabase('light', 1);
+    switchGPIO(gpio.light, 1);
     this._sendMsg('lightSet', 1);
     console.log('Light switched on by automation');
   };
@@ -67,6 +69,7 @@ class Lights {
 
     if (this.state === 0) return;
     appUtil.writeToDatabase('light', 0);
+    switchGPIO(gpio.light, 0);
     this._sendMsg('lightSet', 0);
     console.log('Light switched off by automation');
   };

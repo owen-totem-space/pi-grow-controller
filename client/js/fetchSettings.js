@@ -1,6 +1,6 @@
-export { getSettings };
+export { fetchSettings };
 
-function getSettings(url) {
+function fetchSettings(url) {
   return fetch(url)
     .then((res) => res.json())
     .then((json) => {
@@ -25,5 +25,3 @@ function getSettings(url) {
     })
     .catch((err) => console.log(err));
 }
-
-getSettings('/getState');

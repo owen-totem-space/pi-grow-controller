@@ -14,6 +14,7 @@ const humidityAutomation = require('./server/Humidity-auto.js');
 const tempAutomation = require('./server/Temp-auto.js');
 const lightAutomation = require('./server/Light-auto.js');
 const fanAutomation = require('./server/Fan-auto.js');
+const { initGPIO } = require('./server/gpio.js');
 
 // Variables
 const PORT = 3000 || process.env.PORT;
@@ -109,6 +110,7 @@ function onConnection(socket) {
   console.log('A new client has connected');
   uiInit(io, socket);
   uiEvent(io, socket);
+  initGPIO();
   humidityAutomation.setSocket(io, socket);
   tempAutomation.setSocket(io, socket);
   lightAutomation.setSocket(io, socket);

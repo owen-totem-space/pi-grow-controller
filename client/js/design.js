@@ -1,5 +1,6 @@
+export { setBackgroundImg };
 //Set Background
-function setBgGreet() {
+function setBackgroundImg() {
   let today = new Date();
   let hour = today.getHours();
 
@@ -14,4 +15,3 @@ function setBgGreet() {
     document.body.style.backgroundImage = "url('img/astronomy-beautiful-clouds-constellation-355465.jpg')";
   }
 }
-setBgGreet();

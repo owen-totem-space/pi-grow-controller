@@ -1,4 +1,4 @@
-import { getSettings } from './fetchSettings.js';
+import { fetchSettings } from './fetchSettings.js';
 export { settingsForm };
 
 function settingsForm(e, formEl, url) {
@@ -22,5 +22,5 @@ function settingsForm(e, formEl, url) {
     .catch((err) => console.log(err));
 
   // Call getSettings() to update UI with new data
-  getSettings('/getState');
+  fetchSettings('/getState');
 }

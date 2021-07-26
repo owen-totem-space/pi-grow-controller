@@ -1,4 +1,5 @@
 const appUtil = require('./appUtil.js');
+const { gpio, switchGPIO } = require('./gpio.js');
 
 class Fan {
   constructor() {
@@ -63,6 +64,7 @@ class Fan {
 
     if (this.state === 1) return;
     appUtil.writeToDatabase('fan', 1);
+    switchGPIO(gpio.fan, 1);
     this._sendMsg('fanSet', 1);
     console.log('Fan switched on by automation');
   };
@@ -72,6 +74,7 @@ class Fan {
 
     if (this.state === 0) return;
     appUtil.writeToDatabase('fan', 0);
+    switchGPIO(gpio.fan, 0);
     this._sendMsg('fanSet', 0);
     console.log('Fan switched off by automation');
   };

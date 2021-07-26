@@ -1,16 +1,15 @@
-// import { gpioStartup, runGPIO } from './gpio.js';
-
 // import dayjs from 'dayjs';
-// import customParseFormat from 'dayjs/plugin/customParseFormat';
-// dayjs.extend(customParseFormat);
 import { settingsForm } from './forms.js';
-import { getSettings } from './fetchSettings.js';
+import { fetchSettings } from './fetchSettings.js';
+import { setBackgroundImg } from './design.js';
+import { headerTime } from './time.js';
 
 (function () {
-  // Load socket.io
   const socket = io();
-  // gpioStartup();
-  // runGPIO(socket);
+
+  setBackgroundImg();
+  headerTime();
+  fetchSettings('/getState');
 
   /**
    * Submit forms with fetch
@@ -82,24 +81,15 @@ import { getSettings } from './fetchSettings.js';
     el.checked = true;
     console.log(el.id + ' UI switched on');
   }
+
   function switchOff(el) {
     el.dataset.toggle = 'off';
     el.checked = false;
     console.log(el.id + ' UI switched off');
   }
+
   function flipSwitch(newValue, el) {
     if (newValue === 0) switchOff(el);
     if (newValue === 1) switchOn(el);
   }
 })();
-
-// async _fetchState() {
-//   fetch('/getState')
-//     .then(function (res) {
-//       return res.json();
-//     })
-//     .then(function (data) {
-//       console.log(data.humidifier.value);
-//       return data.humidifier.value;
-//     });
-// }

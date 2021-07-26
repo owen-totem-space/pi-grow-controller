@@ -1,4 +1,5 @@
 const appUtil = require('./appUtil.js');
+const { gpio, switchGPIO } = require('./gpio.js');
 
 // TODO: Set Timers to 1 minute
 
@@ -9,6 +10,7 @@ class Humidity {
     this.lowHumid = appUtil.getStateFromDatabase('humidityLow');
     this.humidifierState = appUtil.getStateFromDatabase('humidifier');
     this.fanState = appUtil.getStateFromDatabase('fan');
+    this.dehumidifierState = appUtil.getStateFromDatabase('dehumidifier');
     this.io = null;
     this.socket = null;
 
@@ -89,39 +91,63 @@ class Humidity {
    *
    */
   _switchHumidifierOn = () => {
-    const humidifierState = appUtil.getStateFromDatabase('humidifier');
+    this.humidifierState = appUtil.getStateFromDatabase('humidifier');
 
-    if (humidifierState === 1) return;
+    if (this.humidifierState === 1) return;
     appUtil.writeToDatabase('humidifier', 1);
+    switchGPIO(gpio.humidifier, 1);
     this._sendMsg('humidSet', 1);
     console.log('humidifier switched on by automation');
   };
 
   _switchHumidifierOff = () => {
-    const humidifierState = appUtil.getStateFromDatabase('humidifier');
+    this.humidifierState = appUtil.getStateFromDatabase('humidifier');
 
-    if (humidifierState === 0) return;
+    if (this.humidifierState === 0) return;
     appUtil.writeToDatabase('humidifier', 0);
+    switchGPIO(gpio.humidifier, 0);
     this._sendMsg('humidSet', 0);
     console.log('humidifier switched off by automation');
   };
 
   _switchFanOn = () => {
-    const fanState = appUtil.getStateFromDatabase('fan');
+    this.fanState = appUtil.getStateFromDatabase('fan');
 
-    if (fanState === 1) return;
-    appUtil.writeToDatabase('fan', 0);
+    if (this.fanState === 1) return;
+    appUtil.writeToDatabase('fan', 1);
+    switchGPIO(gpio.fan, 1);
     this._sendMsg('fanSet', 1);
     console.log('fan switched on by automation');
   };
 
   _switchFanOff = () => {
-    const fanState = appUtil.getStateFromDatabase('fan');
+    this.fanState = appUtil.getStateFromDatabase('fan');
 
-    if (fanState === 0) return;
+    if (this.fanState === 0) return;
     appUtil.writeToDatabase('fan', 0);
+    switchGPIO(gpio.fan, 0);
     this._sendMsg('fanSet', 0);
     console.log('fan switched off by automation');
+  };
+
+  _switchDehumidifierOn = () => {
+    this.dehumidifierState = appUtil.getStateFromDatabase('dehumidifier');
+
+    if (this.dehumidifierState === 1) return;
+    appUtil.writeToDatabase('dehumidifier', 1);
+    switchGPIO(gpio.dehumidifier, 1);
+    this._sendMsg('dehumidSet', 1);
+    console.log('Dehumidifier switched on by automation');
+  };
+
+  _switchDehumidifierOff = () => {
+    this.dehumidifierState = appUtil.getStateFromDatabase('dehumidifier');
+
+    if (this.dehumidifierState === 0) return;
+    appUtil.writeToDatabase('dehumidifier', 0);
+    switchGPIO(gpio.dehumidifier, 0);
+    this._sendMsg('dehumidSet', 0);
+    console.log('Dehumidifier switched off by automation');
   };
 }
 

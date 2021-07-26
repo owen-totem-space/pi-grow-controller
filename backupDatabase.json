@@ -1,9 +1,18 @@
 {
   "light": "1",
-  "fan": "0",
+  "fan": "1",
   "heater": "0",
   "humidifier": "1",
   "dehumidifier": "0",
-  "temperature": "21",
-  "humidity": "59"
+  "temperature": "28",
+  "humidity": "58",
+  "soil": "80",
+  "tempHigh": "28",
+  "tempLow": "23",
+  "humidityLow": "60",
+  "humidityHigh": "70",
+  "lightOn": "09:00",
+  "lightOff": "18:00",
+  "fanOn": "08:30",
+  "fanOff": "12:00"
 }

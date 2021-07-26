@@ -1,4 +1,5 @@
 const appUtil = require('./appUtil.js');
+const { gpio, switchGPIO } = require('./gpio.js');
 
 // TODO: Set timers to 1 minute
 class Temp {
@@ -80,37 +81,41 @@ class Temp {
   };
 
   _switchHeatOn = () => {
-    const heaterState = appUtil.getStateFromDatabase('heater');
+    this.heaterState = appUtil.getStateFromDatabase('heater');
 
-    if (heaterState === 1) return;
+    if (this.heaterState === 1) return;
     appUtil.writeToDatabase('heater', 1);
+    switchGPIO(gpio.heater, 1);
     this._sendMsg('heatSet', 1);
     console.log('Heater switched on by automation');
   };
 
   _switchHeatOff = () => {
-    const heaterState = appUtil.getStateFromDatabase('heater');
+    this.heaterState = appUtil.getStateFromDatabase('heater');
 
-    if (heaterState === 0) return;
+    if (this.heaterState === 0) return;
     appUtil.writeToDatabase('heater', 0);
+    switchGPIO(gpio.heater, 0);
     this._sendMsg('heatSet', 0);
     console.log('Heater switched off by automation');
   };
 
   _switchFanOn = () => {
-    const fanState = appUtil.getStateFromDatabase('fan');
+    this.fanState = appUtil.getStateFromDatabase('fan');
 
-    if (fanState === 1) return;
+    if (this.fanState === 1) return;
     appUtil.writeToDatabase('fan', 1);
+    switchGPIO(gpio.fan, 1);
     this._sendMsg('fanSet', 1);
     console.log('fan switched on by automation');
   };
 
   _switchFanOff = () => {
-    const fanState = appUtil.getStateFromDatabase('fan');
+    this.fanState = appUtil.getStateFromDatabase('fan');
 
-    if (fanState === 0) return;
+    if (this.fanState === 0) return;
     appUtil.writeToDatabase('fan', 0);
+    switchGPIO(gpio.fan, 0);
     this._sendMsg('fanSet', 0);
     console.log('fan switched off by automation');
   };
