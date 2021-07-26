@@ -21,5 +21,6 @@ function settingsForm(e, formEl, url) {
     // .then((data) => console.log(data))
     .catch((err) => console.log(err));
 
+  // Call getSettings() to update UI with new data
   getSettings('/getState');
 }

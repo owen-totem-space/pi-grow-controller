@@ -18,11 +18,17 @@ const fanAutomation = require('./server/Fan-auto.js');
 // Variables
 const PORT = 3000 || process.env.PORT;
 
-// Middleware and static files
+/**
+ *  Middleware and static files
+ */
 app.use(express.static(path.join(__dirname, 'client')));
 app.use(express.urlencoded({ extended: true }));
 
-// Route for frontend to access database file
+/**
+ *
+ * Route for frontend to access database file
+ *
+ */
 app.get('/getState', function (req, res) {
   fs.readFile(__dirname + '/' + 'server/switches.json', 'utf8', function (err, data) {
     if (err) console.log(err);
@@ -83,14 +89,15 @@ app.post('/humidity-settings', (req, res) => {
 });
 
 // Start server
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  initAutomation();
-});
-
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+initAutomation();
 io.on('connection', onConnection);
 
-// Functions
+/**
+ *
+ * Functions
+ *
+ */
 function initAutomation() {
   humidityAutomation.manageHumidity();
   tempAutomation.manageTemp();

@@ -1,11 +1,19 @@
 // import ApexCharts from 'apexcharts';
-// import { humidityAutomation } from './classes/Humidity-auto.js';
-// import tempAutomation from './classes/Temp-auto.js';
 
-// let temp = tempAutomation.getTemp();
-let temp = 50;
+/**
+ *
+ * Variables for chart inputs
+ *
+ */
+let temp = await getData('temperature');
+let humidity = await getData('humidity');
+let soil = await getData('soil');
 
-// Chart Options
+/**
+ *
+ * Temperature Chart
+ *
+ */
 const tempOptions = {
   // Data
   series: [temp],
@@ -62,7 +70,7 @@ const tempOptions = {
         },
         value: {
           formatter: function (val) {
-            return parseInt(val / 2) + ' °C';
+            return parseInt(val) + ' °C';
           },
           offsetY: 10,
           color: '#ccc',
@@ -91,23 +99,12 @@ const tempOptions = {
   },
   labels: ['Temp'],
 };
-// Init Chart
-const tempChart = new ApexCharts(document.querySelector('#temp-gauge'), tempOptions);
-// Render Chart
-tempChart.render();
 
-let humidity = await fetch('/getState')
-  .then(function (res) {
-    return res.json();
-  })
-  .then(function (data) {
-    console.log(data.humidity);
-    return data.humidity;
-  });
-
-// async _fetchState() {
-
-// }
+/**
+ *
+ * Humdidity Guage
+ *
+ */
 // Chart Options
 const humidOptions = {
   // Data
@@ -194,12 +191,7 @@ const humidOptions = {
   },
   labels: ['Humidity'],
 };
-// Init Chart
-const humidChart = new ApexCharts(document.querySelector('#humid-gauge'), humidOptions);
-// Render Chart
-humidChart.render();
 
-let soil = 85;
 // Chart Options
 const soilOptions = {
   // Data
@@ -287,18 +279,40 @@ const soilOptions = {
   labels: ['Soil'],
 };
 
-// Init Chart
+/**
+ *
+ * Init Charts
+ *
+ */
+const tempChart = new ApexCharts(document.querySelector('#temp-gauge'), tempOptions);
+const humidChart = new ApexCharts(document.querySelector('#humid-gauge'), humidOptions);
 const soilChart = new ApexCharts(document.querySelector('#soil-gauge'), soilOptions);
 
-// Render Chart
+/**
+ *
+ * Render Charts
+ *
+ */
+tempChart.render();
 soilChart.render();
+humidChart.render();
 
 /**
+ *
  * Update Charts
+ *
  */
-function update(chart, getValueFunction) {
-  chart.updateSeries([getValueFunction()]);
+async function update(chart, getData, key) {
+  chart.updateSeries([await getData(key)]);
 }
-// setInterval(update, 5000, humidChart, humidityAutomation.getHumidity);
-// setInterval(update, 5000, soilChart, )
-// setInterval(update, 5000, tempChart, tempAutomation.getTemp);
+
+setInterval(update, 5000, humidChart, getData, 'humidity');
+setInterval(update, 5000, soilChart, getData, 'soil');
+setInterval(update, 5000, tempChart, getData, 'temperature');
+
+function getData(key) {
+  return fetch('/getState')
+    .then((res) => res.json())
+    .then((data) => data[key])
+    .catch((err) => console.log(err));
+}
