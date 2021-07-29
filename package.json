@@ -2,10 +2,12 @@
   "name": "pi-sensor",
   "version": "1.0.0",
   "description": "A controller for a plugboard and sensors",
-  "main": "app.mjs",
+  "main": "./dist/app.js",
+  "private": "true",
   "scripts": {
     "start": "node app",
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "build": "webpack --config webpack.dev.js && gulp build"
   },
   "author": "Owen McCarthy",
   "license": "MIT",
@@ -14,7 +16,8 @@
     "dayjs": "^1.10.6",
     "express": "^4.17.1",
     "onoff": "^6.0.3",
-    "socket.io": "^4.1.3"
+    "socket.io": "^4.1.3",
+    "source-map-support": "^0.5.19"
   },
   "devDependencies": {
     "browser-sync": "^2.27.4",
@@ -23,6 +26,9 @@
     "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "nodemon": "^2.0.12",
-    "sass": "^1.35.2"
+    "sass": "^1.35.2",
+    "socket.io-client": "^4.1.3",
+    "webpack": "^5.47.0",
+    "webpack-cli": "^4.7.2"
   }
 }

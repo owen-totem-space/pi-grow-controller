@@ -1,0 +1,171 @@
+// body {
+//   margin: 0;
+//   padding: 0;
+// }
+@import './config/variables';
+@import './config/normalize';
+@import './config/mixins';
+
+@import './components/buttons';
+@import './components/inputs';
+@import './components/circle-gauge';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  color: var(--global--platinum-full);
+  color: #fff;
+  background-color: var(--body-bakcground);
+  background-image: radial-gradient(#111111 90%, #756213, #111111);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 30%, rgba(255, 255, 255, 0) 100%);
+  margin: 0 0 40px 0;
+}
+.header-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & .app-title h1 {
+    margin: 0;
+  }
+}
+
+.stats-panel {
+  margin: 0 0 60px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ctrl-panel {
+  padding: 1em 2em;
+  margin-bottom: 40px;
+
+  & .ctrl {
+    display: grid;
+    grid-template-columns: 1fr 2fr 0.5fr;
+    padding: 0 1em 0 1em;
+    position: relative;
+
+    &:not(:last-child) {
+      margin: 0 0 1.2em 0;
+      padding-bottom: 1em;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 0.5em 2px var(--global--neon-blue-light);
+      }
+    }
+
+    & .toggleBtn {
+      grid-column-end: -1;
+      justify-self: end;
+    }
+  }
+  & .ctrl-title {
+    font-size: 1.5rem;
+  }
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 1.5em 0;
+  padding: 0 1em 0.5em 1em;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0.5em 2px var(--global--neon-blue);
+  }
+}
+
+.config-panel {
+  padding: 1em 2em;
+  margin-bottom: 2.5em;
+
+  & .config-title {
+    font-size: 1.5rem;
+  }
+
+  & .config {
+    padding: 0 1em 0 1em;
+    display: flex;
+    overflow: visible;
+    // opacity: 1;
+    height: auto;
+    transition: height 200ms ease-in-out;
+
+    &:not(:last-child) {
+      margin: 0 0 1.2em 0;
+    }
+
+    &[data-collapsed='true'] {
+      overflow: hidden;
+      // opacity: 0;
+    }
+  }
+
+  & .current-settings-title {
+    margin-bottom: 1.5em;
+  }
+
+  & .current-settings {
+    flex: 1 0 60%;
+    font-size: 0.8rem;
+
+    & .config-item {
+      margin-right: 2em;
+    }
+    & .value-wrapper {
+      display: flex;
+    }
+  }
+
+  & .config-form {
+    flex: 1 1 40%;
+    padding-bottom: 0.5em;
+  }
+
+  & .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+/** ####################################################################### */
+/**                         Utilities                                       */
+/** ####################################################################### */
+
+.glass {
+  background: linear-gradient(to right top, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1));
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 2px -4px 16px -8px rgba(0, 0, 0, 0.6), inset 2px -4px 16px -8px rgba(255, 255, 255, 0.2),
+    0 0 0.5em 2px var(--global--neon-blue-light), inset 0 0 0.5em 2px var(--global--neon-blue-light);
+
+  border: var(--global--neon-blue) 2px solid;
+}

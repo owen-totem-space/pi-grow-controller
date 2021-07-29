@@ -1,5 +1,6 @@
 const fs = require('fs');
-const fileName = __dirname + '/switches.json';
+const path = require('path');
+const fileName = path.join(__dirname, '/switches.json');
 const database = require(fileName);
 const dayjs = require('dayjs');
 
@@ -22,37 +23,18 @@ module.exports = appUtil = {
     return data[key];
   },
 
-  parseTime(str) {
-    let time = dayjs('1/1/1 ' + str, 'HH:mm');
-
-    if (time.$m < 10) {
-      time = time.$H.toString() + '0' + time.$m.toString();
-      time = parseInt(time);
-    } else {
-      time = time.$H.toString() + time.$m.toString();
-      time = parseInt(time);
-    }
+  parseTime(timeStr) {
+    const arr = timeStr.split(':');
+    const hour = parseInt(arr[0]);
+    const min = parseInt(arr[1]);
+    let time = dayjs().hour(hour).minute(min).second(0);
+    time = dayjs(time).format('HH:mm');
     return time;
   },
 
   timeNow() {
     let time = dayjs();
-
-    if (time.$m < 10) {
-      time = time.$H.toString() + '0' + time.$m.toString();
-      time = parseInt(time);
-    } else {
-      time = time.$H.toString() + time.$m.toString();
-      time = parseInt(time);
-    }
+    time = dayjs(time).format('HH:mm');
     return time;
   },
 };
-
-/**
- , (err) => {
-      if (err) return console.log(err);
-      // console.log('writing to ' + fileName);
-      // console.log(JSON.stringify(database));
-    });
-    */

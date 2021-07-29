@@ -1,4 +1,4 @@
-export { fetchSettings };
+export { fetchSettings, fetchState };
 
 function fetchSettings(url) {
   return fetch(url)
@@ -22,6 +22,15 @@ function fetchSettings(url) {
       document.getElementById('temp-low').value = json.tempLow;
       document.getElementById('humidity-high').value = json.humidityHigh;
       document.getElementById('humidity-low').value = json.humidityLow;
+
+      document.querySelector(`input[name="light-selection"][value= "${json.lightSelection}"]`).checked = 'checked';
+      document.querySelector(`input[name="fan-selection"][value= "${json.fanSelection}"]`).checked = 'checked';
     })
+    .catch((err) => console.log(err));
+}
+
+function fetchState(url) {
+  return fetch(url)
+    .then((res) => res.json())
     .catch((err) => console.log(err));
 }

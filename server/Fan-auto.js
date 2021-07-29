@@ -8,10 +8,12 @@ class Fan {
     this.state = appUtil.getStateFromDatabase('fan');
     this.timeOn = appUtil.getFromDatabase('fanOn');
     this.timeOff = appUtil.getFromDatabase('fanOff');
+    this.mode = appUtil.getFromDatabase('fanSelection');
   }
 
   // Public
   getTimeOn = () => {
+    this.timeOn = appUtil.getFromDatabase('fanOn');
     return this.timeOn;
   };
 
@@ -21,6 +23,7 @@ class Fan {
   };
 
   getTimeOff = () => {
+    this.timeOff = appUtil.getFromDatabase('fanOff');
     return this.timeOff;
   };
 
@@ -29,31 +32,50 @@ class Fan {
     return this;
   };
 
+  getMode = () => {
+    this.mode = appUtil.getFromDatabase('fanSelection');
+    return this.mode;
+  };
+
   setSocket = (io, socket) => {
     this.socket = socket;
     return this;
   };
 
   manageFan = () => {
-    setInterval(() => {
-      const timeOn = appUtil.parseTime(this.timeOn);
-      const timeOff = appUtil.parseTime(this.timeOff);
-      const timeNow = appUtil.timeNow();
-      // console.log('time on: ' + timeOn);
-      // console.log('time off: ' + timeOff);
-      // console.log('timenow: ' + timeNow);
+    const checkMode = () => {
+      const mode = this.getMode();
 
-      if (timeNow === timeOn) {
+      if (mode === 'always-on') {
         this._switchFanOn();
       }
-      if (timeNow === timeOff) {
-        this._switchFanOff();
+      if (mode === 'on-timer') {
+        this._timerMode();
       }
-    }, 20000);
-    console.log('Fan automation active');
+      if (mode === 'manual') {
+        return;
+      }
+    };
+    checkMode();
+    setInterval(checkMode, 5000);
+    console.log('Listening to fan Mode');
   };
 
   // Private
+  _timerMode = () => {
+    const timeOn = appUtil.parseTime(this.getTimeOn());
+    const timeOff = appUtil.parseTime(this.getTimeOff());
+    const timeNow = appUtil.timeNow();
+
+    if (timeNow === timeOn) {
+      this._switchFanOn();
+    }
+    if (timeNow === timeOff) {
+      this._switchFanOff();
+    }
+    console.log('Fan timer active');
+  };
+
   _sendMsg = (msg, val) => {
     this.socket.emit(msg, val);
     return this;

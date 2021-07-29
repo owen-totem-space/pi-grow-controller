@@ -1,30 +1,21 @@
 // import dayjs from 'dayjs';
-import { settingsForm } from './forms.js';
+import { initForms } from './forms.js';
 import { fetchSettings } from './fetchSettings.js';
 import { setBackgroundImg } from './design.js';
 import { headerTime } from './time.js';
+import { initDropdowns } from './dropdownPanels.js';
+import { run } from './charts.js';
 
 (function () {
   const socket = io();
 
-  setBackgroundImg();
+  // setBackgroundImg();
   headerTime();
+  // run fetchSettings before initDropdowns to set state
   fetchSettings('/getState');
-
-  /**
-   * Submit forms with fetch
-   */
-  const lightForm = document.getElementById('light-settings');
-  lightForm.addEventListener('submit', (e) => settingsForm(e, lightForm, '/light-settings'));
-
-  const fanForm = document.getElementById('fan-settings');
-  fanForm.addEventListener('submit', (e) => settingsForm(e, fanForm, '/fan-settings'));
-
-  const tempForm = document.getElementById('temperature-settings');
-  tempForm.addEventListener('submit', (e) => settingsForm(e, tempForm, '/temp-settings'));
-
-  const humidityForm = document.getElementById('humidity-settings');
-  humidityForm.addEventListener('submit', (e) => settingsForm(e, humidityForm, '/humidity-settings'));
+  initDropdowns();
+  initForms();
+  // changeStateLabel();
 
   /**
    * Add Event Listeners on buttons
@@ -45,6 +36,12 @@ import { headerTime } from './time.js';
   const dehumidSwitch = document.getElementById('dehumid-toggle-js');
   dehumidSwitch.addEventListener('change', () => eventMsg(dehumidSwitch, 'dehumidSwitch'));
 
+  const tempAutoSwitch = document.getElementById('temp-auto-js');
+  tempAutoSwitch.addEventListener('change', () => automationMsg(tempAutoSwitch, 'tempAutoSwitch'));
+
+  const humidAutoSwitch = document.getElementById('humidity-auto-js');
+  humidAutoSwitch.addEventListener('change', () => automationMsg(humidAutoSwitch, 'humidityAutoSwitch'));
+
   /**
    * Manage Messages from socket.io server
    */
@@ -63,6 +60,12 @@ import { headerTime } from './time.js';
   socket.on('dehumidSet', (newValue) => {
     flipSwitch(newValue, dehumidSwitch);
   });
+  socket.on('tempAutoSet', (newValue) => {
+    flipAutoSwitch(newValue, tempAutoSwitch);
+  });
+  socket.on('humidityAutoSet', (newValue) => {
+    flipAutoSwitch(newValue, humidAutoSwitch);
+  });
 
   /**
    * Functions
@@ -75,21 +78,38 @@ import { headerTime } from './time.js';
       socket.emit(msg, 0);
     }
   }
+  function automationMsg(el, msg) {
+    if (el.checked) {
+      socket.emit(msg, 'automationOn');
+    }
+    if (!el.checked) {
+      socket.emit(msg, 'automationOff');
+    }
+  }
 
   function switchOn(el) {
     el.dataset.toggle = 'on';
     el.checked = true;
-    console.log(el.id + ' UI switched on');
+    // console.log(el.id + ' UI switched on');
   }
 
   function switchOff(el) {
     el.dataset.toggle = 'off';
     el.checked = false;
-    console.log(el.id + ' UI switched off');
+    // console.log(el.id + ' UI switched off');
   }
 
   function flipSwitch(newValue, el) {
     if (newValue === 0) switchOff(el);
     if (newValue === 1) switchOn(el);
+  }
+
+  function flipAutoSwitch(newValue, el) {
+    if (newValue === 'automationOff') {
+      switchOff(el);
+    }
+    if (newValue === 'automationOn') {
+      switchOn(el);
+    }
   }
 })();

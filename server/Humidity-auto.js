@@ -13,6 +13,7 @@ class Humidity {
     this.dehumidifierState = appUtil.getStateFromDatabase('dehumidifier');
     this.io = null;
     this.socket = null;
+    this.mode = appUtil.getFromDatabase('humidityAutomation');
 
     this._listenToHumidity();
   }
@@ -21,6 +22,7 @@ class Humidity {
    * Public Functions
    */
   getHighHumidity = () => {
+    this.highHumid = appUtil.getStateFromDatabase('humidityHigh');
     return this.highHumid;
   };
   setHighHumidity = (num) => {
@@ -28,6 +30,7 @@ class Humidity {
     return this;
   };
   getLowHumidity = () => {
+    this.lowHumid = appUtil.getStateFromDatabase('humidityLow');
     return this.lowHumid;
   };
   setLowHumidity = (num) => {
@@ -35,7 +38,13 @@ class Humidity {
     return this;
   };
   getHumidity = () => {
+    this.humidity = appUtil.getStateFromDatabase('humidity');
     return this.humidity;
+  };
+
+  getMode = () => {
+    this.mode = appUtil.getFromDatabase('humidityAutomation');
+    return this.mode;
   };
 
   setSocket = (io, socket) => {
@@ -45,24 +54,41 @@ class Humidity {
   };
 
   manageHumidity = () => {
-    setInterval(() => {
-      const humidity = this.getHumidity();
-      const lowHumidity = this.getLowHumidity();
-      const highHumidity = this.getHighHumidity();
+    const checkMode = () => {
+      const mode = this.getMode();
 
-      if (humidity <= lowHumidity) {
-        this._switchHumidifierOn();
-        // console.log('too dry');
+      if (mode === 'automationOn') {
+        this._automationOn();
       }
-      if (humidity >= highHumidity) {
-        this._switchFanOn();
-        // console.log('too humid');
+      if (mode === 'automationOff') {
+        return;
       }
-      if (humidity >= this._medianHumidity()) {
-        this._switchHumidifierOff();
-        // console.log('humid above median');
-      }
-    }, 5000);
+    };
+    checkMode();
+    setInterval(checkMode, 5000);
+    console.log('Listening to humidity mode');
+  };
+
+  _automationOn = () => {
+    const humidity = this.getHumidity();
+    const lowHumidity = this.getLowHumidity();
+    const highHumidity = this.getHighHumidity();
+
+    if (humidity <= lowHumidity) {
+      this._switchHumidifierOn();
+      // console.log('too dry');
+    }
+    if (humidity >= highHumidity) {
+      this._switchDehumidifierOn();
+      // console.log('too humid');
+    }
+    if (humidity >= this._medianHumidity()) {
+      this._switchHumidifierOff();
+      // console.log('humid above median');
+    }
+    if (humidity <= this._medianHumidity()) {
+      this._switchDehumidifierOff();
+    }
     console.log('Humidity automation active');
   };
 
@@ -110,26 +136,6 @@ class Humidity {
     console.log('humidifier switched off by automation');
   };
 
-  _switchFanOn = () => {
-    this.fanState = appUtil.getStateFromDatabase('fan');
-
-    if (this.fanState === 1) return;
-    appUtil.writeToDatabase('fan', 1);
-    switchGPIO(gpio.fan, 1);
-    this._sendMsg('fanSet', 1);
-    console.log('fan switched on by automation');
-  };
-
-  _switchFanOff = () => {
-    this.fanState = appUtil.getStateFromDatabase('fan');
-
-    if (this.fanState === 0) return;
-    appUtil.writeToDatabase('fan', 0);
-    switchGPIO(gpio.fan, 0);
-    this._sendMsg('fanSet', 0);
-    console.log('fan switched off by automation');
-  };
-
   _switchDehumidifierOn = () => {
     this.dehumidifierState = appUtil.getStateFromDatabase('dehumidifier');
 
@@ -148,6 +154,26 @@ class Humidity {
     switchGPIO(gpio.dehumidifier, 0);
     this._sendMsg('dehumidSet', 0);
     console.log('Dehumidifier switched off by automation');
+  };
+
+  _switchFanOn = () => {
+    this.fanState = appUtil.getStateFromDatabase('fan');
+
+    if (this.fanState === 1) return;
+    appUtil.writeToDatabase('fan', 1);
+    switchGPIO(gpio.fan, 1);
+    this._sendMsg('fanSet', 1);
+    console.log('fan switched on by automation');
+  };
+
+  _switchFanOff = () => {
+    this.fanState = appUtil.getStateFromDatabase('fan');
+
+    if (this.fanState === 0) return;
+    appUtil.writeToDatabase('fan', 0);
+    switchGPIO(gpio.fan, 0);
+    this._sendMsg('fanSet', 0);
+    console.log('fan switched off by automation');
   };
 }
 

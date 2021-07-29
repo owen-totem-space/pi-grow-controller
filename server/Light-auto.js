@@ -8,16 +8,23 @@ class Lights {
     this.state = appUtil.getStateFromDatabase('light');
     this.timeOn = appUtil.getFromDatabase('lightOn');
     this.timeOff = appUtil.getFromDatabase('lightOff');
+    this.mode = appUtil.getFromDatabase('lightSelection');
   }
   // Public
-  getTimeOn = () => {};
+  getTimeOn = () => {
+    this.timeOn = appUtil.getFromDatabase('lightOn');
+    return this.timeOn;
+  };
 
   setTimeOn = (time) => {
     this.timeOn = time;
     return this;
   };
 
-  getTimeOff = () => {};
+  getTimeOff = () => {
+    this.timeOff = appUtil.getFromDatabase('lightOff');
+    return this.timeOff;
+  };
 
   setTimeOff = (time) => {
     this.timeOff = time;
@@ -29,26 +36,45 @@ class Lights {
     return this;
   };
 
-  manageLight = () => {
-    setInterval(() => {
-      const timeOn = appUtil.parseTime(this.timeOn);
-      const timeOff = appUtil.parseTime(this.timeOff);
-      const timeNow = appUtil.timeNow();
-      // console.log('time on: ' + timeOn);
-      // console.log('time off: ' + timeOff);
-      // console.log('timenow: ' + timeNow);
+  getMode = () => {
+    this.mode = appUtil.getFromDatabase('lightSelection');
+    return this.mode;
+  };
 
-      if (timeNow === timeOn) {
+  manageLight = () => {
+    const checkMode = () => {
+      const mode = this.getMode();
+
+      if (mode === 'always-on') {
         this._switchLightOn();
       }
-      if (timeNow === timeOff) {
-        this._switchLightOff();
+      if (mode === 'on-timer') {
+        this._timerMode();
       }
-    }, 20000);
-    console.log('Light automation active');
+      if (mode === 'manual') {
+        return;
+      }
+    };
+    checkMode();
+    setInterval(checkMode, 5000);
+    console.log('Listening to light mode');
   };
 
   // Private
+  _timerMode = () => {
+    const timeOn = appUtil.parseTime(this.getTimeOn());
+    const timeOff = appUtil.parseTime(this.getTimeOff());
+    const timeNow = appUtil.timeNow();
+
+    if (timeNow === timeOn) {
+      this._switchLightOn();
+    }
+    if (timeNow === timeOff) {
+      this._switchLightOff();
+    }
+    // console.log('Light timer active');
+  };
+
   _sendMsg = (msg, val) => {
     this.socket.emit(msg, val);
     return this;

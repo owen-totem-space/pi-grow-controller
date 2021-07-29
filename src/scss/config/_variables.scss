@@ -1,0 +1,37 @@
+:root {
+  --global--neon-blue-full: rgb(0, 57, 153);
+  --global--neon-blue: rgba(0, 57, 153, 0.6);
+  --global--neon-blue-light: rgba(0, 57, 153, 0.5);
+  --global--neon-blue-lighter: rgba(0, 57, 153, 0.3);
+
+  --global--green-full: rgba(0, 134, 153, 1);
+  --global--green-light: rgba(0, 134, 153, 0.5);
+  --global--green-lighter: rgba(0, 134, 153, 0.3);
+
+  --global--bright-green-light: rgba(107, 212, 37, 0.4);
+  --global--bright-green-lighter: rgba(107, 212, 37, 0.1);
+
+  --global--red: rgba(146, 20, 12, 1);
+  --global--red-light: rgba(146, 20, 12, 0.5);
+  --global--red-lighter: rgba(146, 20, 12, 0.2);
+
+  --global--platinum-full: rgba(149, 175, 186, 1);
+  --global--platinum: rgba(149, 175, 186, 0.8);
+  --global--platinum-light: rgba(149, 175, 186, 0.3);
+  --global--platinum-lighter: rgba(149, 175, 186, 0.1);
+
+  --global--light-blue-light: rgba(6, 190, 225, 0.5);
+  --global--light-blue-lighter: rgba(6, 190, 225, 0.3);
+
+  --global--dark-orange: rgba(153, 96, 0, 1);
+  --global--dark-orange-light: rgba(153, 96, 0, 0.5);
+  --global--dark-orange-lighter: rgba(153, 96, 0, 0.3);
+
+  --body-background: #111111;
+
+  // Buttons
+  --submit-btn-font: var(--global--platinum-full);
+
+  --toggle-btn-red: rgba(146, 20, 12, 0.75);
+  --toggle-btn-green: rgba(0, 134, 153, 0.75);
+}

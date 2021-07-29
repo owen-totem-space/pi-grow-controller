@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raspberry Pi Controller</title>
+  <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <!-- <script defer src="js/main.js" type="module"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+  <!-- <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script> -->
+  
+  <script defer src="/socket.io/socket.io.js"></script>
+  <!-- <script defer src="js/charts.js" type="module"></script> -->
+  <script defer src="./js/bundle.js"></script>
+
+</head>
+<body>
+  <div class="header">
+    <div class="header-panel container">
+      <span class="app-title"><h1>Controller</h1></span>
+      <span class="time" id="time"></span>
+    </div>
+  </div>
+
+  <div class="page-container container">
+
+    <div class="stats-panel">
+      <div class="gauge-container glass">
+        <div id="temp-gauge" class="temp-gauge"></div>
+      </div>
+      <div class="gauge-container glass">
+        <div id="humid-gauge" class="humid-gauge"></div>
+      </div>
+      <div class="gauge-container glass">
+        <div id="soil-gauge" class="humid-gauge"></div>
+      </div>
+    </div>
+
+    <div class="ctrl-panel glass">
+
+      <div id="ctrl-light"class="ctrl light">
+        <div class="ctrl-title light">Lights</div>
+        <span class="show-state-js light"></span>
+        <div class="toggleBtn light">
+          <input type="checkbox" id="light-toggle-js" class="checkbox"/>
+          <label id="light-switch-js" for="light-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+      <div id="ctrl-fan"class="ctrl fan">
+        <div class="ctrl-title fan">Exhaust Fan</div>
+        <div class="state-label-wrapper">
+          <span class="show-state-js fan"></span>
+          <span class="show-auto-js fan"></span>
+        </div>
+        <div class="toggleBtn fan">
+          <input type="checkbox" id="fan-toggle-js" class="checkbox"/>
+          <label id="fan-switch-js" for="fan-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+      <div id= "ctrl-heat" class="ctrl heat">
+        <div class="ctrl-title heat">Heater</span></div>
+        <span class="show-state-js heat"></span>
+        <div class="toggleBtn heat">
+          <input type="checkbox" id="heat-toggle-js" class="checkbox"/>
+          <label for="heat-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+      <div class="ctrl humidifier">
+        <div class="ctrl-title humidifier">Humidifier</div>
+        <span class="show-state-js humidifier"></span>
+        <div class="toggleBtn humidifier">
+          <input type="checkbox" id="humid-toggle-js" class="checkbox"/>
+          <label for="humid-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+      <div class="ctrl dehumidifier">
+        <div class="ctrl-title dehumidifier">Dehumidifier</div>
+        <span class="show-state-js dehumidifier"></span>
+        <div class="toggleBtn dehumidifier">
+          <input type="checkbox" id="dehumid-toggle-js" class="checkbox"/>
+          <label for="dehumid-toggle-js" class="switch"></label>
+        </div>
+      </div>
+
+    </div> <!-- ctrl-panel-->
+
+    <div class="config-panel glass">
+      <div class="panel-header">
+        <div class="config-title">Light Timer</div>
+        <!-- <div class="toggleBtn"> -->
+          <form class="radio-form" id="light-selection" action="" method="POST">
+            <input class="radio-btn" type="radio" id="light-24hr" name="light-selection" value="always-on">
+            <label class="radio-label" for="light-24hr">24 Hour</label>
+            <input class="radio-btn" type="radio" id="light-on-timer" name="light-selection"value="on-timer">
+            <label class="radio-label" for="light-on-timer">Timer</label>
+            <input class="radio-btn" type="radio" id="light-manual" name="light-selection" value="manual">
+            <label class="radio-label" for="light-manual">Manual</label>
+          </form>
+        </div>
+      <!-- </div> -->
+      <div class="light-timer config">
+        <div class="current-settings">
+          <div class="current-settings-title">Current Settings</div>
+          <div class="value-wrapper">
+            <div class="config-item">Time On: <span id="light-time-on-js"></span></div>
+            <div class="config-item">Time Off: <span id="light-time-off-js"></span></div>
+          </div>
+        </div>
+       
+        <form class="config-form"  id="light-settings" action="/light-settings" method="POST">
+          <div class="input-wrapper">
+            <!-- <span class="input-name">Lights On</span> -->
+            <div class="input-group">
+              <label class="form-input-label" for="switch-light-on"><span class="label=name">Light On</span></label>
+              <input class="form-input" id="switch-light-on" type="time" name="switch-light-on" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <!-- <span class="input-name">Lights Off</span> -->
+            <div class="input-group">
+              <label class="form-input-label" for="switch-light-off"><span class="label=name">Light Off</span></label>
+              <input class="form-input" id="switch-light-off" type="time" name="switch-light-off" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="button-wrapper">
+            <button class="submit-btn reset">Reset</button>
+            <button class="submit-btn" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="config-panel glass">
+      <div class="panel-header">
+        <div class="config-title">Fan Timer</div>
+        <!-- <div class="toggleBtn"> -->
+          <form class="radio-form" id="fan-selection" action="" method="POST">
+            <input class="radio-btn" type="radio" id="fan-24hr" name="fan-selection" value="always-on">
+            <label class="radio-label" for="fan-24hr">24 Hour</label>
+            <input class="radio-btn" type="radio" id="fan-on-timer" name="fan-selection" value="on-timer">
+            <label class="radio-label" for="fan-on-timer">Timer</label>
+            <input class="radio-btn" type="radio" id="fan-manual" name="fan-selection" value="manual">
+            <label class="radio-label" for="fan-manual">Manual</label>
+          </form>
+        <!-- </div> -->
+      </div>
+      <div class="fan-timer config">
+        <div class="current-settings">
+          <div class="current-settings-title">Current</div>
+          <div class="value-wrapper">
+            <div class="config-item">On: <span id="fan-time-on-js"></span></div>
+            <div class="config-item">Off: <span id="fan-time-off-js"></span></div>
+        </div>
+        </div>
+        <form class="config-form" id="fan-settings" action="/fan-settings" method="POST">
+          <div class="input-wrapper">
+            <!-- <span class="input-name">Fan On</span> -->
+            <div class="input-group">
+              <label class="form-input-label" for="switch-fan-on"><span class="label=name">Fan On</span></label>
+              <input class="form-input" id="switch-fan-on" type="time" name="switch-fan-on" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <!-- <span class="input-name">Fan Off</span> -->
+            <div class="input-group">
+              <label class="form-input-label" for="switch-fan-off"><span class="label=name">Fan Off</span></label>
+              <input class="form-input" id="switch-fan-off" type="time" name="switch-fan-off" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="button-wrapper">
+            <button class="submit-btn reset">Reset</button>
+            <button class="submit-btn" type="submit">Save</button>
+          </div>
+        </form>
+  
+      </div>
+    </div>
+
+    <div class="config-panel glass">
+      <div class="panel-header">
+        <div class="config-title">Temperature Settings</div>
+        <div class="toggleBtn">
+          <span class="checkbox-label" id="temp-auto-text-js"></span>
+          <input type="checkbox" id="temp-auto-js" class="checkbox"/>
+          <label for="temp-auto-js" class="switch"></label>
+        </div>
+      </div>
+      <div class="temp-config config">
+        <div class="current-settings">
+          <div class="current-settings-title">Current Settings</div>
+          <div class="value-wrapper">
+            <div class="config-item">Temp High: <span id="temp-high-js"></span></div>
+            <div class="config-item">Temp Low: <span id="temp-low-js"></span></div>
+          </div>
+        </div>
+        <form class="config-form" id="temperature-settings" action="/temp-settings" method="POST">
+          <div class="input-wrapper">
+            <div class="input-group">
+              <label class="form-input-label" for="temp-high"><span class="label=name">Temp High</span></label>
+              <input class="form-input" id="temp-high" type="number" min="20" max="40" name="temp-high" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <div class="input-group">
+              <label class="form-input-label" for="temp-low"><span class="label=name">Temp Low</span></label>
+              <input class="form-input" id="temp-low" type="number" min="20" max="40" name="temp-low" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="button-wrapper">
+            <button class="submit-btn reset" type="submit">Reset</button>
+            <button class="submit-btn" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="config-panel glass">
+      <div class="panel-header">
+        <div class="config-title">Humidity Settings</div>
+        <div class="toggleBtn">
+          <span class="checkbox-label" id="humidity-auto-text-js"></span>
+          <input type="checkbox" id="humidity-auto-js" class="checkbox"/>
+          <label for="humidity-auto-js" class="switch"></label>
+        </div>
+      </div>
+      <div class="humid-config config">
+        <div class="current-settings">
+          <div class="current-settings-title">Current Settings</div>
+          <div class="value-wrapper">
+            <div class="config-item">Humidity High: <span id="humidity-high-js"></span></div>
+            <div class="config-item">Humidity Low: <span id="humidity-low-js"></span></div>
+          </div>
+        </div>
+        <form class="config-form" id="humidity-settings" action="/humidity-settings" method="POST">
+          <div class="input-wrapper">
+            <div class="input-group">
+              <label class="form-input-label" for="humidity-high"><span class="label=name">Humidity High</span></label>
+              <input class="form-input" id="humidity-high" type="number" min="0" max="100" name="humidity-high" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <div class="input-group">
+              <label class="form-input-label" for="humidity-low"><span class="label=name">Humidity Low</span></label>
+              <input class="form-input" id="humidity-low" type="number" min="0" max="100" name="humidity-low" required><span class="pseudo-line"></span>
+            </div>
+          </div>
+          <div class="button-wrapper">
+            <button class="submit-btn reset" type="submit">Reset</button>
+            <button class="submit-btn" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div> <!-- Page Container-->
+
+</body>
+</html>

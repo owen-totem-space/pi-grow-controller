@@ -1,0 +1,122 @@
+/* ############################################################################################################# */
+/*                                               Toggle Design                                                   */
+/* ############################################################################################################# */
+.toggleBtn {
+  display: flex;
+  align-items: center;
+
+  .checkbox-label {
+    font-size: 0.875rem;
+    margin-right: 1em;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 16px;
+  background-color: var(--toggle-btn-red);
+  // background-color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 300ms;
+  box-shadow: inset 2px -4px 6px -3px rgba(0, 0, 0, 0.4), inset -2px 4px 6px -3px rgba(255, 255, 255, 0.3);
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: rgba(164, 163, 163, 1);
+    top: -3px;
+    left: 0;
+    transition: all 150ms ease-out;
+    box-shadow: inset -2px 4px 10px -3px rgba(0, 0, 0, 0.2), inset 2px -4px 10px -3px rgba(255, 255, 255, 0.6),
+      0 0 0.5em 0 var(--global--neon-blue), inset 0 0 0.5em 0 var(--global--neon-blue);
+  }
+}
+
+.checkbox:checked + .switch {
+  background-color: var(--toggle-btn-green);
+
+  &::after {
+    left: 24px;
+  }
+}
+
+.checkbox {
+  display: none;
+  float: right;
+}
+
+/* ############################################################################################################# */
+/*                                               Button Design                                                   */
+/* ############################################################################################################# */
+.submit-btn {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.25em 1em;
+  margin-left: 2em;
+  border-radius: 0.25em;
+  color: var(--submit-btn-font);
+  background: var(--global--bright-green-lighter);
+  border: 2px solid var(--global--bright-green-light);
+  box-shadow: 0 0 0.35em 2px var(--global--bright-green-light), inset 0 0 0.35em 2px var(--global--bright-green-light);
+
+  &.reset {
+    margin-left: 0;
+    opacity: 0.75;
+    background: var(--global--red-lighter);
+    border: 2px solid var(--global--red-light);
+    box-shadow: 0 0 0.35em 2px var(--global--red-light), inset 0 0 0.35em 2px var(--global--red-light);
+  }
+}
+
+/* ############################################################################################################# */
+/*                                               Radio Buttons                                                   */
+/* ############################################################################################################# */
+.radio-btn {
+  display: none;
+}
+
+.radio-label {
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0.25em 1em;
+  margin-left: 0.75em;
+  border-radius: 0.25em;
+  color: var(--submit-btn-font);
+  background: var(--global--platinum-lighter);
+  border: 2px solid var(--global--platinum-light);
+  opacity: 0.75;
+  box-shadow: 0 0 0.35em 1px var(--global--platinum-light), inset 0 0 0.35em 1px var(--global--platinum-light);
+  transition: box-shadow 200ms ease-out, border-color 200ms ease-out, background-color 200ms ease-out;
+}
+
+.radio-btn:checked + .radio-label {
+  opacity: 1;
+  background: var(--global--bright-green-lighter);
+  border: 2px solid var(--global--bright-green-light);
+  box-shadow: 0 0 0.35em 2px var(--global--bright-green-light), inset 0 0 0.35em 1px var(--global--bright-green-light);
+}
+
+/* ############################################################################################################# */
+/*                                               State Indicators                                                */
+/* ############################################################################################################# */
+.show-auto-js,
+.show-state-js {
+  // cursor: pointer;
+  justify-self: start;
+  font-size: 0.875rem;
+  padding: 0.25em 1em;
+  margin-left: 0.75em;
+  border-radius: 0.25em;
+  color: var(--submit-btn-font);
+  // color: var(--global--platinum-full);
+  background: var(--global--platinum-lighter);
+  border: 2px solid var(--global--platinum-light);
+  opacity: 0.75;
+  box-shadow: 0 0 0.35em 1px var(--global--platinum-light), inset 0 0 0.35em 1px var(--global--platinum-light);
+}

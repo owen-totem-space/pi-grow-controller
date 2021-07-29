@@ -1,5 +1,5 @@
 {
-  "light": "0",
+  "light": "1",
   "fan": "1",
   "heater": "0",
   "humidifier": "1",
@@ -14,5 +14,9 @@
   "lightOn": "09:00",
   "lightOff": "18:00",
   "fanOn": "08:30",
-  "fanOff": "12:00"
+  "fanOff": "12:00",
+  "tempAutomation": "automationOn",
+  "humidityAutomation": "automationOff",
+  "fanSelection": "on-timer",
+  "lightSelection": "manual"
 }

@@ -1,22 +1,22 @@
-// const Gpio = require('onoff').Gpio;
+const Gpio = require('onoff').Gpio;
 const appUtil = require('./appUtil.js');
 
-class Gpio {
-  constructor(port, str) {
-    this.port = port;
-    this.str = str;
-    this.state = 0;
-  }
-  writeSync = (val) => {
-    this.state = val;
-    if (this.state === 1) console.log(`${this.port} is on`);
-    else if (this.state === 0) console.log(`${this.port} is off`);
-    else console.log(`Error in ${this.port} ${this.state}`);
-  };
-  unexport = () => {
-    console.log(`${this.val} unexported`);
-  };
-}
+// class Gpio {
+//   constructor(port, str) {
+//     this.port = port;
+//     this.str = str;
+//     this.state = 0;
+//   }
+//   writeSync = (val) => {
+//     this.state = val;
+//     // if (this.state === 1) console.log(`${this.port} is on`);
+//     // else if (this.state === 0) console.log(`${this.port} is off`);
+//     // else console.log(`Error in ${this.port} ${this.state}`);
+//   };
+//   unexport = () => {
+//     console.log(`${this.val} unexported`);
+//   };
+// }
 
 const gpio = {
   light: new Gpio(26, 'out'),

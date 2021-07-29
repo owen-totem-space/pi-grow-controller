@@ -7,6 +7,8 @@ const uiInit = (io, socket) => {
   socket.emit('heatSet', appUtil.getStateFromDatabase('heater'));
   socket.emit('humidSet', appUtil.getStateFromDatabase('humidifier'));
   socket.emit('dehumidSet', appUtil.getStateFromDatabase('dehumidifier'));
+  socket.emit('tempAutoSet', appUtil.getFromDatabase('tempAutomation'));
+  socket.emit('humidityAutoSet', appUtil.getFromDatabase('humidityAutomation'));
 };
 
 const uiEvent = (io, socket) => {
@@ -43,6 +45,18 @@ const uiEvent = (io, socket) => {
     switchGPIO(gpio.dehumidifier, newValue);
     io.emit('dehumidSet', newValue);
     console.log(`Dehumidifier switched by UI`);
+  });
+
+  socket.on('tempAutoSwitch', (newValue) => {
+    appUtil.writeToDatabase('tempAutomation', newValue);
+    io.emit('tempAutoSet', newValue);
+    console.log('Temp automation changed in UI');
+  });
+
+  socket.on('humidityAutoSwitch', (newValue) => {
+    appUtil.writeToDatabase('humidityAutomation', newValue);
+    io.emit('humidityAutoSet', newValue);
+    console.log('Humidity automation changed in UI');
   });
 };
 

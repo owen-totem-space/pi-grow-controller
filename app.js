@@ -22,7 +22,7 @@ const PORT = 3000 || process.env.PORT;
 /**
  *  Middleware and static files
  */
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.urlencoded({ extended: true }));
 
 /**
@@ -35,6 +35,18 @@ app.get('/getState', function (req, res) {
     if (err) console.log(err);
     res.send(data);
   });
+});
+
+app.post('/light-selection', (req, res) => {
+  const selection = req.body['light-selection'];
+  appUtil.writeToDatabase('lightSelection', selection);
+  res.redirect('/');
+});
+
+app.post('/fan-selection', (req, res) => {
+  const selection = req.body['fan-selection'];
+  appUtil.writeToDatabase('fanSelection', selection);
+  res.redirect('/');
 });
 
 app.post('/light-settings', (req, res) => {
@@ -58,8 +70,8 @@ app.post('/fan-settings', (req, res) => {
   const fanOff = req.body['switch-fan-off'];
   appUtil.writeToDatabase('fanOff', fanOff);
 
-  fanAutomation.setTimeOn(fanOn);
-  fanAutomation.setTimeOff(fanOff);
+  // fanAutomation.setTimeOn(fanOn);
+  // fanAutomation.setTimeOff(fanOff);
   res.redirect('/');
 });
 
@@ -71,8 +83,8 @@ app.post('/temp-settings', (req, res) => {
   const tempHigh = req.body['temp-high'];
   appUtil.writeToDatabase('tempHigh', tempHigh);
 
-  tempAutomation.setLowTemp(tempLow);
-  tempAutomation.setHighTemp(tempHigh);
+  // tempAutomation.setLowTemp(tempLow);
+  // tempAutomation.setHighTemp(tempHigh);
   res.redirect('/');
 });
 
@@ -92,6 +104,7 @@ app.post('/humidity-settings', (req, res) => {
 // Start server
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 initAutomation();
+initGPIO();
 io.on('connection', onConnection);
 
 /**
@@ -110,7 +123,6 @@ function onConnection(socket) {
   console.log('A new client has connected');
   uiInit(io, socket);
   uiEvent(io, socket);
-  initGPIO();
   humidityAutomation.setSocket(io, socket);
   tempAutomation.setSocket(io, socket);
   lightAutomation.setSocket(io, socket);

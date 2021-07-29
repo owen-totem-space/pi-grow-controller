@@ -11,11 +11,13 @@ class Temp {
     this.fanState = appUtil.getStateFromDatabase('fan');
     this.io = null;
     this.socket = null;
+    this.mode = appUtil.getFromDatabase('tempAutomation');
 
     this._listenToTemp();
   }
   // Public
   getHighTemp = () => {
+    this.highTemp = appUtil.getStateFromDatabase('tempHigh');
     return this.highTemp;
   };
   setHighTemp = (temp) => {
@@ -23,6 +25,7 @@ class Temp {
     return this;
   };
   getLowTemp = () => {
+    this.lowTemp = appUtil.getStateFromDatabase('tempLow');
     return this.lowTemp;
   };
   setLowTemp = (temp) => {
@@ -31,7 +34,13 @@ class Temp {
     return this;
   };
   getTemp = () => {
+    this.temp = appUtil.getStateFromDatabase('temperature');
     return this.temp;
+  };
+
+  getMode = () => {
+    this.mode = appUtil.getFromDatabase('tempAutomation');
+    return this.mode;
   };
 
   setSocket = (socket) => {
@@ -40,29 +49,44 @@ class Temp {
   };
 
   manageTemp = () => {
-    setInterval(() => {
-      const temp = this.getTemp();
-      const lowTemp = this.getLowTemp();
-      const highTemp = this.getHighTemp();
+    const checkMode = () => {
+      const mode = this.getMode();
 
-      if (temp <= lowTemp) {
-        this._switchHeatOn();
-        // console.log('temp too low');
+      if (mode === 'automationOn') {
+        this._automationOn();
       }
-      if (temp >= highTemp) {
-        this._switchHeatOff();
-        this._switchFanOn();
-        // console.log('temp too high');
+      if (mode === 'automationOff') {
+        return;
       }
-      if (temp >= this._medianTemp()) {
-        this._switchHeatOff();
-        // console.log('Temp above median');
-      }
-    }, 5000);
-    console.log('Temperature automation active');
+    };
+    checkMode();
+    setInterval(checkMode, 5000);
+
+    console.log('Listening to temperature mode');
   };
 
   // Private
+  _automationOn = () => {
+    const temp = this.getTemp();
+    const lowTemp = this.getLowTemp();
+    const highTemp = this.getHighTemp();
+
+    if (temp <= lowTemp) {
+      this._switchHeatOn();
+      // console.log('temp too low');
+    }
+    if (temp >= highTemp) {
+      this._switchHeatOff();
+      this._switchFanOn();
+      // console.log('temp too high');
+    }
+    if (temp >= this._medianTemp()) {
+      this._switchHeatOff();
+      // console.log('Temp above median');
+    }
+    console.log('Temperature automation active');
+  };
+
   _sendMsg = (msg, val) => {
     this.socket.emit(msg, val);
     return this;
