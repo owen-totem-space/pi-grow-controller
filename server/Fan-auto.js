@@ -73,7 +73,7 @@ class Fan {
     if (timeNow === timeOff) {
       this._switchFanOff();
     }
-    console.log('Fan timer active');
+    // console.log('Fan timer active');
   };
 
   _sendMsg = (msg, val) => {

@@ -1,10 +1,10 @@
-// import dayjs from 'dayjs';
 import { initForms } from './forms.js';
 import { fetchSettings } from './fetchSettings.js';
 import { setBackgroundImg } from './design.js';
 import { headerTime } from './time.js';
 import { initDropdowns } from './dropdownPanels.js';
 import { run } from './charts.js';
+import { io } from 'socket.io-client';
 
 (function () {
   const socket = io();

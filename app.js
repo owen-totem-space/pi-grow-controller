@@ -6,6 +6,11 @@ const express = require('express');
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server);
+// Webpack for Dev
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const config = require('./webpack.dev.js');
+const compiler = webpack(config);
 
 // My modules
 const appUtil = require('./server/appUtil');
@@ -24,6 +29,14 @@ const PORT = 3000 || process.env.PORT;
  */
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.urlencoded({ extended: true }));
+
+// Tell express to use the webpack-dev-middleware and use the webpack.config.js
+// configuration file as a base.
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+  })
+);
 
 /**
  *

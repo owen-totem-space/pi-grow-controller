@@ -4,17 +4,17 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = merge(common, {
-  mode: 'development',
-  output: {
-    filename: 'js/[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-    publicPath: '/',
+module.exports = merge(common, {
+  mode: 'production',
+  output: {
+    filename: 'js/[name].[contenthash].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new MiniCssExtractPlugin({ filename: 'css/[name].css' })],
-  devServer: {
-    contentBase: './dist',
+  plugins: [new MiniCssExtractPlugin({ filename: 'css/[name].[contenthash].css' })],
+  optimization: {
+    minimizer: [new CssMinimizerPlugin()],
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
 });

@@ -18,5 +18,5 @@
   "tempAutomation": "automationOn",
   "humidityAutomation": "automationOff",
   "fanSelection": "on-timer",
-  "lightSelection": "manual"
+  "lightSelection": "always-on"
 }

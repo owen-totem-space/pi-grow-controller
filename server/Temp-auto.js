@@ -84,7 +84,7 @@ class Temp {
       this._switchHeatOff();
       // console.log('Temp above median');
     }
-    console.log('Temperature automation active');
+    // console.log('Temperature automation active');
   };
 
   _sendMsg = (msg, val) => {

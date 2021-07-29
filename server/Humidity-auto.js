@@ -89,7 +89,7 @@ class Humidity {
     if (humidity <= this._medianHumidity()) {
       this._switchDehumidifierOff();
     }
-    console.log('Humidity automation active');
+    // console.log('Humidity automation active');
   };
 
   /**
