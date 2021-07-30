@@ -60,17 +60,20 @@ class DropdownRadio extends Dropdown {
   async setPanel() {
     await fetchState('/getState');
     if (this.obj.btns.timer.checked) {
-      this.showTransition(this.obj.panel);
+      // this.showTransition(this.obj.panel);
+      this.obj.panel.dataset.collapsed = false;
       this.changeStateLabel(this.obj.btns.timer, this.obj);
       this.disableToggle(this.obj);
     }
     if (this.obj.btns.alwaysOn.checked) {
-      this.hideTransition(this.obj.panel);
+      // this.hideTransition(this.obj.panel);
+      this.obj.panel.dataset.collapsed = true;
       this.changeStateLabel(this.obj.btns.alwaysOn, this.obj);
       this.disableToggle(this.obj);
     }
     if (this.obj.btns.manual.checked) {
-      this.hideTransition(this.obj.panel);
+      // this.hideTransition(this.obj.panel);
+      this.obj.panel.dataset.collapsed = true;
       this.changeStateLabel(this.obj.btns.manual, this.obj);
       this.enableToggle(this.obj);
     }
@@ -80,7 +83,7 @@ class DropdownRadio extends Dropdown {
     const ctrlLabels = obj.ctrlLabels;
 
     const radioBtns = Object.values(obj.btns);
-    const labels = ['24 Hours', 'Timer', 'Manual'];
+    const labels = ['24 Hr', 'Timer', 'Man'];
 
     for (let i = 0; i < radioBtns.length; i++) {
       if (radioBtns[i] === el) {
@@ -117,13 +120,15 @@ class DropdownBtn extends Dropdown {
     const el = this.obj.btns.toggle;
     await fetchState('/getState');
     if (el.checked) {
-      this.showTransition(this.obj.panel);
+      // this.showTransition(this.obj.panel);
+      this.obj.panel.dataset.collapsed = false;
       this.changeStateLabel(el, this.obj);
-      el.previousElementSibling.innerHTML = 'Automation On';
+      el.previousElementSibling.innerHTML = 'On';
     } else if (!el.checked) {
-      this.hideTransition(this.obj.panel);
+      // this.hideTransition(this.obj.panel);
+      this.obj.panel.dataset.collapsed = true;
       this.changeStateLabel(el, this.obj);
-      el.previousElementSibling.innerHTML = 'Automation Off';
+      el.previousElementSibling.innerHTML = 'Off';
     }
   }
 
@@ -131,9 +136,9 @@ class DropdownBtn extends Dropdown {
     const ctrlLabels = obj.ctrlLabels;
 
     if (el.dataset.toggle === 'on') {
-      ctrlLabels.forEach((label) => (label.innerHTML = 'Automation'));
+      ctrlLabels.forEach((label) => (label.innerHTML = 'Auto'));
     } else if (el.dataset.toggle === 'off') {
-      ctrlLabels.forEach((label) => (label.innerHTML = 'Manual'));
+      ctrlLabels.forEach((label) => (label.innerHTML = 'Man'));
     }
   }
 }

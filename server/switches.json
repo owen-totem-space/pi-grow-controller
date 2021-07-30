@@ -11,12 +11,12 @@
   "tempLow": "23",
   "humidityLow": "60",
   "humidityHigh": "70",
-  "lightOn": "09:00",
+  "lightOn": "05:00",
   "lightOff": "18:00",
   "fanOn": "08:30",
   "fanOff": "12:00",
-  "tempAutomation": "automationOn",
-  "humidityAutomation": "automationOff",
-  "fanSelection": "on-timer",
-  "lightSelection": "always-on"
+  "tempAutomation": "automationOff",
+  "humidityAutomation": "automationOn",
+  "fanSelection": "always-on",
+  "lightSelection": "on-timer"
 }

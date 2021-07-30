@@ -9,7 +9,7 @@ import { io } from 'socket.io-client';
 (function () {
   const socket = io();
 
-  // setBackgroundImg();
+  setBackgroundImg();
   headerTime();
   // run fetchSettings before initDropdowns to set state
   fetchSettings('/getState');

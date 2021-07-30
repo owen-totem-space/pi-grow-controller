@@ -1,0 +1,56 @@
+.config-panel {
+  padding: 1em clamp(0.5em, 4vw, 2em);
+  margin-bottom: 2.5em;
+
+  & .config-title {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  & .radio-form {
+    justify-self: right;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75em;
+  }
+
+  & .config {
+    padding: 0 clamp(0.5em, 2vw, 1em);
+    overflow: hidden;
+    max-height: 140px;
+    transition: max-height 200ms ease-in-out;
+
+    &[data-collapsed='true'] {
+      max-height: 0;
+    }
+
+    &:not(:last-child) {
+      margin: 0 0 1.2em 0;
+    }
+  }
+
+  & .current-settings-title {
+    margin-bottom: 1.5em;
+  }
+
+  & .current-settings {
+    display: flex;
+    font-size: 0.8rem;
+
+    & .config-item {
+      margin-right: 2em;
+    }
+    & .value-wrapper {
+      display: flex;
+    }
+  }
+
+  & .config-form {
+    padding-bottom: 0.5em;
+  }
+
+  & .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,3 +1,11 @@
+/**
+  Media Query Breakpoints
+*/
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-large: 960px;
+$breakpoint-max: 1260px;
+
 :root {
   --global--neon-blue-full: rgb(0, 57, 153);
   --global--neon-blue: rgba(0, 57, 153, 0.6);

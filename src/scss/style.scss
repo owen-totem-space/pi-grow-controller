@@ -6,6 +6,9 @@
 @import './config/normalize';
 @import './config/mixins';
 
+@import './sections/ctrl-panel';
+@import './sections/config-panel';
+
 @import './components/buttons';
 @import './components/inputs';
 @import './components/circle-gauge';
@@ -18,11 +21,12 @@ body {
   color: #fff;
   // color: #000;
   background-color: var(--body-bakcground);
-  background-image: radial-gradient(#111111 90%, #756213, #111111);
+  // background-image: radial-gradient(#111111 90%, #756213, #111111);
+  background-repeat: none;
 }
 
 .container {
-  max-width: 800px;
+  max-width: min(800px, 95%);
   margin: 0 auto;
 }
 
@@ -30,6 +34,7 @@ body {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 30%, rgba(255, 255, 255, 0) 100%);
   margin: 0 0 40px 0;
 }
+
 .header-panel {
   display: flex;
   flex-direction: column;
@@ -44,51 +49,25 @@ body {
 .stats-panel {
   margin: 0 0 60px 0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  // flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.ctrl-panel {
-  padding: 1em 2em;
-  margin-bottom: 40px;
-
-  & .ctrl {
-    display: grid;
-    grid-template-columns: 1fr 2fr 0.5fr;
-    padding: 0 1em 0 1em;
-    position: relative;
-
-    &:not(:last-child) {
-      margin: 0 0 1.2em 0;
-      padding-bottom: 1em;
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 0.5em 2px var(--global--neon-blue-light);
-      }
-    }
-
-    & .toggleBtn {
-      grid-column-end: -1;
-      justify-self: end;
-    }
-  }
-  & .ctrl-title {
-    font-size: 1.5rem;
-  }
+.gauge-container {
+  flex: 0 1 200px;
+  margin: 8px 10px;
 }
 
 .panel-header {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   margin: 0 0 1.5em 0;
-  padding: 0 1em 0.5em 1em;
+  padding: 0 clamp(0.375em, 1.5vw, 1em) 1em clamp(0.375em, 2vw, 1em);
   position: relative;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
 
   &::after {
     content: '';
@@ -102,57 +81,14 @@ body {
   }
 }
 
-.config-panel {
-  padding: 1em 2em;
-  margin-bottom: 2.5em;
-
-  & .config-title {
-    font-size: 1.5rem;
-  }
-
-  & .config {
-    padding: 0 1em 0 1em;
-    display: flex;
-    overflow: visible;
-    // opacity: 1;
-    height: auto;
-    transition: height 200ms ease-in-out;
-
-    &:not(:last-child) {
-      margin: 0 0 1.2em 0;
-    }
-
-    &[data-collapsed='true'] {
-      overflow: hidden;
-      // opacity: 0;
-    }
-  }
-
-  & .current-settings-title {
-    margin-bottom: 1.5em;
-  }
-
-  & .current-settings {
-    flex: 1 0 60%;
-    font-size: 0.8rem;
-
-    & .config-item {
-      margin-right: 2em;
-    }
-    & .value-wrapper {
-      display: flex;
-    }
-  }
-
-  & .config-form {
-    flex: 1 1 40%;
-    padding-bottom: 0.5em;
-  }
-
-  & .button-wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
+/** ####################################################################### */
+/**                        Media Queries                                    */
+/** ####################################################################### */
+@media (min-width: $breakpoint-mobile) {
+}
+@media (min-width: $breakpoint-tablet) {
+}
+@media (min-width: $breakpoint-large) {
 }
 
 /** ####################################################################### */
@@ -163,6 +99,7 @@ body {
   background: linear-gradient(to right top, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1));
   border-radius: 10px;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid transparent;
   background-clip: padding-box;
   box-shadow: 2px -4px 16px -8px rgba(0, 0, 0, 0.6), inset 2px -4px 16px -8px rgba(255, 255, 255, 0.2),

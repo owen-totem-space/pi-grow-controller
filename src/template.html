@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raspberry Pi Controller</title>
   <!-- <script defer src="/socket.io/socket.io.js"></script> -->
 </head>
@@ -96,10 +97,10 @@
       <!-- </div> -->
       <div class="light-timer config">
         <div class="current-settings">
-          <div class="current-settings-title">Current Settings</div>
+          <div class="current-settings-title">Current:</div>
           <div class="value-wrapper">
-            <div class="config-item">Time On: <span id="light-time-on-js"></span></div>
-            <div class="config-item">Time Off: <span id="light-time-off-js"></span></div>
+            <div class="config-item">On: <span id="light-time-on-js"></span></div>
+            <div class="config-item">Off: <span id="light-time-off-js"></span></div>
           </div>
         </div>
        
@@ -108,14 +109,14 @@
             <!-- <span class="input-name">Lights On</span> -->
             <div class="input-group">
               <label class="form-input-label" for="switch-light-on"><span class="label=name">Light On</span></label>
-              <input class="form-input" id="switch-light-on" type="time" name="switch-light-on" required><span class="pseudo-line"></span>
+              <input class="form-input" id="switch-light-on" type="time" name="switch-light-on" required>
             </div>
-          </div>
-          <div class="input-wrapper">
+          <!-- </div> -->
+          <!-- <div class="input-wrapper"> -->
             <!-- <span class="input-name">Lights Off</span> -->
             <div class="input-group">
               <label class="form-input-label" for="switch-light-off"><span class="label=name">Light Off</span></label>
-              <input class="form-input" id="switch-light-off" type="time" name="switch-light-off" required><span class="pseudo-line"></span>
+              <input class="form-input" id="switch-light-off" type="time" name="switch-light-off" required>
             </div>
           </div>
           <div class="button-wrapper">
@@ -153,14 +154,14 @@
             <!-- <span class="input-name">Fan On</span> -->
             <div class="input-group">
               <label class="form-input-label" for="switch-fan-on"><span class="label=name">Fan On</span></label>
-              <input class="form-input" id="switch-fan-on" type="time" name="switch-fan-on" required><span class="pseudo-line"></span>
+              <input class="form-input" id="switch-fan-on" type="time" name="switch-fan-on" required>
             </div>
-          </div>
-          <div class="input-wrapper">
+          <!-- </div> -->
+          <!-- <div class="input-wrapper"> -->
             <!-- <span class="input-name">Fan Off</span> -->
             <div class="input-group">
               <label class="form-input-label" for="switch-fan-off"><span class="label=name">Fan Off</span></label>
-              <input class="form-input" id="switch-fan-off" type="time" name="switch-fan-off" required><span class="pseudo-line"></span>
+              <input class="form-input" id="switch-fan-off" type="time" name="switch-fan-off" required>
             </div>
           </div>
           <div class="button-wrapper">
@@ -174,7 +175,7 @@
 
     <div class="config-panel glass">
       <div class="panel-header">
-        <div class="config-title">Temperature Settings</div>
+        <div class="config-title">Temperature Auto</div>
         <div class="toggleBtn">
           <span class="checkbox-label" id="temp-auto-text-js"></span>
           <input type="checkbox" id="temp-auto-js" class="checkbox"/>
@@ -183,23 +184,23 @@
       </div>
       <div class="temp-config config">
         <div class="current-settings">
-          <div class="current-settings-title">Current Settings</div>
+          <div class="current-settings-title">Current: </div>
           <div class="value-wrapper">
-            <div class="config-item">Temp High: <span id="temp-high-js"></span></div>
-            <div class="config-item">Temp Low: <span id="temp-low-js"></span></div>
+            <div class="config-item">High: <span id="temp-high-js"></span></div>
+            <div class="config-item">Low: <span id="temp-low-js"></span></div>
           </div>
         </div>
         <form class="config-form" id="temperature-settings" action="/temp-settings" method="POST">
           <div class="input-wrapper">
             <div class="input-group">
               <label class="form-input-label" for="temp-high"><span class="label=name">Temp High</span></label>
-              <input class="form-input" id="temp-high" type="number" min="20" max="40" name="temp-high" required><span class="pseudo-line"></span>
+              <input class="form-input" id="temp-high" type="number" inputmode="decimal" min="20" max="40" name="temp-high" required>
             </div>
-          </div>
-          <div class="input-wrapper">
+          <!-- </div> -->
+          <!-- <div class="input-wrapper"> -->
             <div class="input-group">
               <label class="form-input-label" for="temp-low"><span class="label=name">Temp Low</span></label>
-              <input class="form-input" id="temp-low" type="number" min="20" max="40" name="temp-low" required><span class="pseudo-line"></span>
+              <input class="form-input" id="temp-low" type="number" inputmode="decimal" min="20" max="40" name="temp-low" required>
             </div>
           </div>
           <div class="button-wrapper">
@@ -212,7 +213,7 @@
 
     <div class="config-panel glass">
       <div class="panel-header">
-        <div class="config-title">Humidity Settings</div>
+        <div class="config-title">Humidity Auto</div>
         <div class="toggleBtn">
           <span class="checkbox-label" id="humidity-auto-text-js"></span>
           <input type="checkbox" id="humidity-auto-js" class="checkbox"/>
@@ -221,23 +222,23 @@
       </div>
       <div class="humid-config config">
         <div class="current-settings">
-          <div class="current-settings-title">Current Settings</div>
+          <div class="current-settings-title">Current: </div>
           <div class="value-wrapper">
-            <div class="config-item">Humidity High: <span id="humidity-high-js"></span></div>
-            <div class="config-item">Humidity Low: <span id="humidity-low-js"></span></div>
+            <div class="config-item">High: <span id="humidity-high-js"></span></div>
+            <div class="config-item">Low: <span id="humidity-low-js"></span></div>
           </div>
         </div>
         <form class="config-form" id="humidity-settings" action="/humidity-settings" method="POST">
           <div class="input-wrapper">
             <div class="input-group">
               <label class="form-input-label" for="humidity-high"><span class="label=name">Humidity High</span></label>
-              <input class="form-input" id="humidity-high" type="number" min="0" max="100" name="humidity-high" required><span class="pseudo-line"></span>
+              <input class="form-input" id="humidity-high" type="number" inputmode="decimal" min="0" max="100" name="humidity-high" required>
             </div>
-          </div>
-          <div class="input-wrapper">
+          <!-- </div> -->
+          <!-- <div class="input-wrapper"> -->
             <div class="input-group">
               <label class="form-input-label" for="humidity-low"><span class="label=name">Humidity Low</span></label>
-              <input class="form-input" id="humidity-low" type="number" min="0" max="100" name="humidity-low" required><span class="pseudo-line"></span>
+              <input class="form-input" id="humidity-low" type="number" inputmode="decimal" min="0" max="100" name="humidity-low" required>
             </div>
           </div>
           <div class="button-wrapper">

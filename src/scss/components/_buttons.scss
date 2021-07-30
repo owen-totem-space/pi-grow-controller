@@ -4,9 +4,10 @@
 .toggleBtn {
   display: flex;
   align-items: center;
+  margin-left: auto;
 
   .checkbox-label {
-    font-size: 0.875rem;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
     margin-right: 1em;
   }
 }
@@ -84,8 +85,9 @@
 .radio-label {
   cursor: pointer;
   font-size: 0.875rem;
+  font-size: clamp(0.75rem, 2.5vw, 0.875rem);
   padding: 0.25em 1em;
-  margin-left: 0.75em;
+  // margin-left: 0.75em;
   border-radius: 0.25em;
   color: var(--submit-btn-font);
   background: var(--global--platinum-lighter);
@@ -108,8 +110,11 @@
 .show-auto-js,
 .show-state-js {
   // cursor: pointer;
+  display: grid;
+  place-items: center;
   justify-self: start;
   font-size: 0.875rem;
+  font-size: clamp(0.4rem, 2vw, 0.875rem);
   padding: 0.25em 1em;
   margin-left: 0.75em;
   border-radius: 0.25em;
@@ -119,4 +124,9 @@
   border: 2px solid var(--global--platinum-light);
   opacity: 0.75;
   box-shadow: 0 0 0.35em 1px var(--global--platinum-light), inset 0 0 0.35em 1px var(--global--platinum-light);
+}
+.state-label-wrapper {
+  justify-self: start;
+  display: flex;
+  flex-wrap: wrap;
 }

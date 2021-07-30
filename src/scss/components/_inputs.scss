@@ -11,6 +11,7 @@
   position: relative;
   border: 2px solid var(--global--neon-blue-full);
   border-radius: 0.275em;
+  margin-left: 1em;
 
   & .form-input-label {
     position: absolute;
@@ -41,14 +42,14 @@
 
 input[type='time'],
 input[type='number'] {
-  width: 140px;
+  width: clamp(110px, 20vw, 140px);
   font-size: 1.1rem;
   background: none;
   color: #fff;
   border: none;
   position: relative;
   text-align: right;
-  padding: 0.5em 0.25em 0.5em 2em;
+  padding: 0.5em 0.25em 0.5em clamp(0.25em, 2vw, 2em);
 }
 
 input[type='time']:focus,

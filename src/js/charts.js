@@ -1,15 +1,14 @@
 import ApexCharts from 'apexcharts';
 
-export function run() {
+export async function run() {
   /**
    *
    * Variables for chart inputs
    *
    */
-  let temp = getData('temperature').then((value) => value);
-  let humidity = getData('humidity').then((value) => value);
-  let soil = getData('soil').then((value) => value);
-
+  let temp = await getData('temperature');
+  let humidity = await getData('humidity');
+  let soil = await getData('soil');
   /**
    *
    * Temperature Chart
@@ -297,7 +296,7 @@ export function run() {
    *
    * Render Charts
    *
-   */
+  //  */
   tempChart.render();
   soilChart.render();
   humidChart.render();
@@ -315,7 +314,7 @@ export function run() {
   setInterval(update, 5000, soilChart, getData, 'soil');
   setInterval(update, 5000, tempChart, getData, 'temperature');
 
-  function getData(key) {
+  async function getData(key) {
     return fetch('/getState')
       .then((res) => res.json())
       .then((data) => data[key])
