@@ -19,7 +19,7 @@
         right: 0;
         height: 1px;
         background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 0.5em 2px var(--global--neon-blue-light);
+        box-shadow: 0 0 0.5em 2px var(--global--neon-blue), inset 0 0 0.5em 2px var(--global--neon-blue);
       }
     }
 

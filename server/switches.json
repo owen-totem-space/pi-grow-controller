@@ -1,9 +1,9 @@
 {
   "light": "1",
   "fan": "1",
-  "heater": "0",
-  "humidifier": "1",
-  "dehumidifier": "0",
+  "heater": "1",
+  "humidifier": "0",
+  "dehumidifier": "1",
   "temperature": "28",
   "humidity": "58",
   "soil": "80",
@@ -11,12 +11,12 @@
   "tempLow": "23",
   "humidityLow": "60",
   "humidityHigh": "70",
-  "lightOn": "05:00",
+  "lightOn": "17:59",
   "lightOff": "18:00",
-  "fanOn": "08:30",
-  "fanOff": "12:00",
-  "tempAutomation": "automationOff",
-  "humidityAutomation": "automationOn",
-  "fanSelection": "always-on",
-  "lightSelection": "on-timer"
+  "fanOn": "17:58",
+  "fanOff": "18:00",
+  "tempAutomation": "0",
+  "humidityAutomation": "0",
+  "lightTimer": "timer",
+  "fanTimer": "alwaysOn"
 }

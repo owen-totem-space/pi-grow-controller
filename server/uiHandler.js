@@ -7,8 +7,10 @@ const uiInit = (io, socket) => {
   socket.emit('heatSet', appUtil.getStateFromDatabase('heater'));
   socket.emit('humidSet', appUtil.getStateFromDatabase('humidifier'));
   socket.emit('dehumidSet', appUtil.getStateFromDatabase('dehumidifier'));
-  socket.emit('tempAutoSet', appUtil.getFromDatabase('tempAutomation'));
-  socket.emit('humidityAutoSet', appUtil.getFromDatabase('humidityAutomation'));
+  socket.emit('lightTimeSet', appUtil.getFromDatabase('lightTimer'));
+  socket.emit('fanTimeSet', appUtil.getFromDatabase('fanTimer'));
+  socket.emit('tempAutoSet', appUtil.getStateFromDatabase('tempAutomation'));
+  socket.emit('humidityAutoSet', appUtil.getStateFromDatabase('humidityAutomation'));
 };
 
 const uiEvent = (io, socket) => {
@@ -45,6 +47,18 @@ const uiEvent = (io, socket) => {
     switchGPIO(gpio.dehumidifier, newValue);
     io.emit('dehumidSet', newValue);
     console.log(`Dehumidifier switched by UI`);
+  });
+
+  socket.on('lightTimeSwitch', (newValue) => {
+    appUtil.writeToDatabase('lightTimer', newValue);
+    io.emit('lightTimeSet', newValue);
+    console.log(`Light Timer switched by UI`);
+  });
+
+  socket.on('fanTimeSwitch', (newValue) => {
+    appUtil.writeToDatabase('fanTimer', newValue);
+    io.emit('fanTimeSet', newValue);
+    console.log(`Fan Timer switched by UI`);
   });
 
   socket.on('tempAutoSwitch', (newValue) => {

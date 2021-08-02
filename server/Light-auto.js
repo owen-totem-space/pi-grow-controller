@@ -6,49 +6,41 @@ class Lights {
     this.io = null;
     this.socket = null;
     this.state = appUtil.getStateFromDatabase('light');
-    this.timeOn = appUtil.getFromDatabase('lightOn');
-    this.timeOff = appUtil.getFromDatabase('lightOff');
-    this.mode = appUtil.getFromDatabase('lightSelection');
+    // this.timeOn = appUtil.getFromDatabase('lightOn');
+    // this.timeOff = appUtil.getFromDatabase('lightOff');
+    // this.mode = appUtil.getFromDatabase('lightTimer');
   }
   // Public
-  getTimeOn = () => {
-    this.timeOn = appUtil.getFromDatabase('lightOn');
-    return this.timeOn;
-  };
-
-  setTimeOn = (time) => {
-    this.timeOn = time;
-    return this;
-  };
-
-  getTimeOff = () => {
-    this.timeOff = appUtil.getFromDatabase('lightOff');
-    return this.timeOff;
-  };
-
-  setTimeOff = (time) => {
-    this.timeOff = time;
-    return this;
-  };
 
   setSocket = (io, socket) => {
+    this.io = io;
     this.socket = socket;
     return this;
   };
 
+  getTimeOn = () => {
+    const timeOn = appUtil.getFromDatabase('lightOn');
+    return timeOn;
+  };
+
+  getTimeOff = () => {
+    const timeOff = appUtil.getFromDatabase('lightOff');
+    return timeOff;
+  };
+
   getMode = () => {
-    this.mode = appUtil.getFromDatabase('lightSelection');
-    return this.mode;
+    const mode = appUtil.getFromDatabase('lightTimer');
+    return mode;
   };
 
   manageLight = () => {
     const checkMode = () => {
       const mode = this.getMode();
 
-      if (mode === 'always-on') {
+      if (mode === 'alwaysOn') {
         this._switchLightOn();
       }
-      if (mode === 'on-timer') {
+      if (mode === 'timer') {
         this._timerMode();
       }
       if (mode === 'manual') {

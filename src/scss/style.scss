@@ -19,37 +19,48 @@ body {
   margin: 0;
   color: var(--global--platinum-full);
   color: #fff;
-  // color: #000;
   background-color: var(--body-bakcground);
-  // background-image: radial-gradient(#111111 90%, #756213, #111111);
+  // background-image: url('../img/pexels-rahul-shah-1546027.jpg');
   background-repeat: none;
 }
 
-.container {
-  max-width: min(800px, 95%);
-  margin: 0 auto;
-}
-
+/** ####################################################################### */
+/**                         Header and Nav                                  */
+/** ####################################################################### */
 .header {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 30%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 30%, rgba(0, 0, 0, 0) 100%);
   margin: 0 0 40px 0;
 }
 
-.header-panel {
+.header-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-
-  & .app-title h1 {
-    margin: 0;
-  }
 }
 
+.app-title h1 {
+  margin: 0;
+}
+
+.time {
+  margin-left: auto;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link {
+  padding: 1em;
+  color: #fff;
+}
+
+/** ####################################################################### */
+/**                         Stats Panel                                     */
+/** ####################################################################### */
 .stats-panel {
   margin: 0 0 60px 0;
   display: flex;
-  // flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -76,9 +87,29 @@ body {
     left: 0;
     right: 0;
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 0.5em 2px var(--global--neon-blue);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0.5em 2px var(--global--neon-blue), inset 0 0 0.5em 2px var(--global--neon-blue);
   }
+}
+
+/** ####################################################################### */
+/**                         Utilities                                       */
+/** ####################################################################### */
+
+.container {
+  max-width: min(800px, 95%);
+  margin: 0 auto;
+}
+
+.glass {
+  background: linear-gradient(to right top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+  border: var(--global--neon-blue-light) 2px solid;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-clip: padding-box;
+  box-shadow: 2px -4px 16px -8px rgba(0, 0, 0, 0.6), inset 2px -4px 16px -8px rgba(255, 255, 255, 0.2),
+    0 0 0.5em 0px var(--global--neon-blue-full), inset 0 0 0.5em 2px var(--global--neon-blue-full);
 }
 
 /** ####################################################################### */
@@ -89,21 +120,4 @@ body {
 @media (min-width: $breakpoint-tablet) {
 }
 @media (min-width: $breakpoint-large) {
-}
-
-/** ####################################################################### */
-/**                         Utilities                                       */
-/** ####################################################################### */
-
-.glass {
-  background: linear-gradient(to right top, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1));
-  border-radius: 10px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid transparent;
-  background-clip: padding-box;
-  box-shadow: 2px -4px 16px -8px rgba(0, 0, 0, 0.6), inset 2px -4px 16px -8px rgba(255, 255, 255, 0.2),
-    0 0 0.5em 2px var(--global--neon-blue-light), inset 0 0 0.5em 2px var(--global--neon-blue-light);
-
-  border: var(--global--neon-blue) 2px solid;
 }

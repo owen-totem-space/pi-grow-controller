@@ -5,15 +5,17 @@ function fetchSettings(url) {
     .then((res) => res.json())
     .then((json) => {
       // console.log(json);
-      document.getElementById('light-time-on-js').innerHTML = json.lightOn;
-      document.getElementById('light-time-off-js').innerHTML = json.lightOff;
-      document.getElementById('fan-time-on-js').innerHTML = json.fanOn;
-      document.getElementById('fan-time-off-js').innerHTML = json.fanOff;
-      document.getElementById('temp-high-js').innerHTML = json.tempHigh;
-      document.getElementById('temp-low-js').innerHTML = json.tempLow;
-      document.getElementById('humidity-high-js').innerHTML = json.humidityHigh;
-      document.getElementById('humidity-low-js').innerHTML = json.humidityLow;
+      // Current settings div
+      document.getElementById('light-time-on-js').innerText = json.lightOn;
+      document.getElementById('light-time-off-js').innerText = json.lightOff;
+      document.getElementById('fan-time-on-js').innerText = json.fanOn;
+      document.getElementById('fan-time-off-js').innerText = json.fanOff;
+      document.getElementById('temp-high-js').innerText = json.tempHigh;
+      document.getElementById('temp-low-js').innerText = json.tempLow;
+      document.getElementById('humidity-high-js').innerText = json.humidityHigh;
+      document.getElementById('humidity-low-js').innerText = json.humidityLow;
 
+      // Form Inputs
       document.getElementById('switch-light-on').value = json.lightOn;
       document.getElementById('switch-light-off').value = json.lightOff;
       document.getElementById('switch-fan-on').value = json.fanOn;
@@ -22,9 +24,6 @@ function fetchSettings(url) {
       document.getElementById('temp-low').value = json.tempLow;
       document.getElementById('humidity-high').value = json.humidityHigh;
       document.getElementById('humidity-low').value = json.humidityLow;
-
-      document.querySelector(`input[name="light-selection"][value= "${json.lightSelection}"]`).checked = 'checked';
-      document.querySelector(`input[name="fan-selection"][value= "${json.fanSelection}"]`).checked = 'checked';
     })
     .catch((err) => console.log(err));
 }

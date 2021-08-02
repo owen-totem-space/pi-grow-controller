@@ -6,20 +6,21 @@ class Fan {
     this.io = null;
     this.socket = null;
     this.state = appUtil.getStateFromDatabase('fan');
-    this.timeOn = appUtil.getFromDatabase('fanOn');
-    this.timeOff = appUtil.getFromDatabase('fanOff');
-    this.mode = appUtil.getFromDatabase('fanSelection');
+    // this.timeOn = appUtil.getFromDatabase('fanOn');
+    // this.timeOff = appUtil.getFromDatabase('fanOff');
+    // this.mode = appUtil.getFromDatabase('fanTimer');
   }
 
   // Public
+  setSocket = (io, socket) => {
+    this.io = io;
+    this.socket = socket;
+    return this;
+  };
+
   getTimeOn = () => {
     this.timeOn = appUtil.getFromDatabase('fanOn');
     return this.timeOn;
-  };
-
-  setTimeOn = (time) => {
-    this.timeOn = time;
-    return this;
   };
 
   getTimeOff = () => {
@@ -27,29 +28,19 @@ class Fan {
     return this.timeOff;
   };
 
-  setTimeOff = (time) => {
-    this.timeOff = time;
-    return this;
-  };
-
   getMode = () => {
-    this.mode = appUtil.getFromDatabase('fanSelection');
+    this.mode = appUtil.getFromDatabase('fanTimer');
     return this.mode;
-  };
-
-  setSocket = (io, socket) => {
-    this.socket = socket;
-    return this;
   };
 
   manageFan = () => {
     const checkMode = () => {
       const mode = this.getMode();
 
-      if (mode === 'always-on') {
+      if (mode === 'alwaysOn') {
         this._switchFanOn();
       }
-      if (mode === 'on-timer') {
+      if (mode === 'timer') {
         this._timerMode();
       }
       if (mode === 'manual') {

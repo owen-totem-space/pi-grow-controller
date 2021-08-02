@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "server": "node app"
+    "server": "node ./server/app"
   },
   "author": "Owen McCarthy",
   "license": "MIT",

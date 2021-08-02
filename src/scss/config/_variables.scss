@@ -7,9 +7,9 @@ $breakpoint-large: 960px;
 $breakpoint-max: 1260px;
 
 :root {
-  --global--neon-blue-full: rgb(0, 57, 153);
-  --global--neon-blue: rgba(0, 57, 153, 0.6);
-  --global--neon-blue-light: rgba(0, 57, 153, 0.5);
+  --global--neon-blue-full: rgb(0, 57, 153, 1);
+  --global--neon-blue: rgba(0, 57, 153, 0.8);
+  --global--neon-blue-light: rgba(0, 57, 153, 0.6);
   --global--neon-blue-lighter: rgba(0, 57, 153, 0.3);
 
   --global--green-full: rgba(0, 134, 153, 1);
